@@ -18,10 +18,12 @@
     <link rel="shortcut icon" type="image/x-icon" href="{% static '/imgs/theme/favicon.svg' %}" />
     <!-- Template CSS -->
     <link rel="stylesheet" href="{% static '/css/main2cc5.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 {% block content %}
 <body>
     <header class="header-area header-style-1 header-height-2">
+        {% include "messages/message.html" %}
         <div class="mobile-promotion">
             <span>Grand opening, <strong>up to 15%</strong> off all items. Only <strong>3 days</strong> left</span>
         </div>
@@ -331,7 +333,7 @@
                                             </li>
                                             <li class="sub-mega-menu sub-mega-menu-width-34">
                                                 <div class="menu-banner-wrap">
-                                                    <a href='shop-product-right.html'><img src="{% static '/imgs/banner/banner-menu.png" alt="Nest" /></a>
+                                                    <a href='shop-product-right.html'><img src="{% static '/imgs/banner/banner-menu.png' %}" alt="Nest" /></a>
                                                     <div class="menu-banner-content">
                                                         <h4>Hot deals</h4>
                                                         <h3>
@@ -1850,7 +1852,7 @@
                             <a href="#" class="hover-up mb-sm-2"><img src="{% static '/imgs/theme/google-play.jpg' %}" alt="" /></a>
                         </div>
                         <p class="mb-20">Secured Payment Gateways</p>
-                        <img class="wow fadeIn animated" src="{% static '/imgs/theme/payment-method.png" alt="" />
+                        <img class="wow fadeIn animated" src="{% static '/imgs/theme/payment-method.png' %}" alt="" />
                     </div>
                 </div>
             </div>
@@ -1892,7 +1894,7 @@
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
                 <div class="text-center">
-                    <img src="{% static '/imgs/theme/loading.gif" alt="" />
+                    <img src="{% static '/imgs/theme/loading.gif' %}" alt="" />
                 </div>
             </div>
         </div>
@@ -1902,7 +1904,7 @@
     <script src="{% static '/js/vendor/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static '/js/vendor/jquery-migrate-3.3.0.min.js' %}"></script>
     <script src="{% static '/js/vendor/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static '/js/plugins/slick.js"></script>
+    <script src="{% static '/js/plugins/slick.js' %}"></script>
     <script src="{% static '/js/plugins/jquery.syotimer.min.js' %}"></script>
     <script src="{% static '/js/plugins/wow.js' %}"></script>
     <script src="{% static '/js/plugins/perfect-scrollbar.js' %}"></script>

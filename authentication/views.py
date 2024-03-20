@@ -11,6 +11,15 @@ from .forms import VendorApplyForm
 from django.utils import timezone
 from datetime import timedelta
 
+from django.utils.http import urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.utils.encoding import force_str
+from django.core.exceptions import MultipleObjectsReturned
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
+
 
 # Create your views here.
 
@@ -28,9 +37,10 @@ class Signup(View):
         last_name = request.POST['last_name']
         
         if User.objects.filter(email=email).exists():
-            return HttpResponse('Email already exists')
+            messages.error(request, 'Email already exists')
+
         if User.objects.filter(username=username).exists():
-            return HttpResponse('Username already exists')
+            messages.error(request, 'Username already exist')
 
         user = User.objects.create_user(email=email, username=username, first_name=first_name, last_name=last_name)
 
@@ -48,7 +58,7 @@ class Signup(View):
         if send_now:
             messages.success(request, 'Successfully sent OTP. Verify your email here.')
             return redirect('verifyit')
-
+        messages.error(request, 'Sign up')
         return render(request, 'user/signup.html')
 
 
@@ -63,23 +73,60 @@ class Verify(View):
         entered_otp = request.POST.get('otp')
         try:
             user = User.objects.get(otp=entered_otp, is_emailverified=False)
-            if user.otp_created_at and timezone.now() - user.otp_created_at <= timedelta(minutes=5):
+            if user.otp_created_at and timezone.now() - user.otp_created_at <= timedelta(minutes=1):
                 user.is_emailverified = True
                 user.save()
                 login(request, user)
-                messages.success(request, 'Success, You are logged in. Create your account here.')
+                messages.success(request, 'Success! You are logged in. Create your account here.')
                 return redirect('registerit')
             else:
-                # If user is not found or OTP is invalid, delete the user 
-                user.delete()
-                messages.error(request, 'Verification failed, signup again.')
-                return redirect('signup')
+                # user.delete()
+                messages.error(request, 'OTP is expired,resend another one here')
+                return redirect('reverifyit')
             
         except User.DoesNotExist:
-            messages.error(request, 'User not found, signup.')
+            messages.error(request, 'User not found, sign up.')
             return redirect('signup')
             
 
+
+
+class ReverifyOtp(View):
+    def get(self, request):
+
+        return render(request, 'user/reverify-otp.html')
+
+
+    def post(self, request):
+        
+        entered_email = request.POST.get('email')
+
+        # Check if the entered email matches the one in the database
+        try:
+            user = User.objects.get(email=entered_email, is_emailverified=False)
+        except User.DoesNotExist:
+            messages.error(request, 'Invalid email address.')
+            return redirect('reverifyit')
+
+        # Generate new OTP
+        new_otp = random.randint(100000, 999999)
+        user.otp = new_otp
+        user.otp_created_at = timezone.now()
+        user.save()
+
+        # Send new OTP
+        subject = "New OTP Verification"
+        body = f"Your new verification code is: {new_otp}"
+        from_email = EMAIL_HOST_USER  # Update with your email host user
+        to_email = entered_email
+        send_now = send_mail(subject, body, from_email, [to_email])
+
+        if send_now:
+            messages.success(request, 'New OTP sent successfully.')
+            return redirect('verifyit') 
+        else:
+            messages.error(request, 'Failed to send new OTP, resend again here.')
+            return redirect('reverifyit')
 
 
 
@@ -120,7 +167,7 @@ class Register(View):
                 user.save(update_fields=['password'])
                 messages.success(request, 'Password updated successfully')
             else:
-                messages.error(request, 'Passwords do not match')
+                messages.error(request, 'Passwords did not match')
         else:
             messages.warning(request, 'No password provided')
 
@@ -132,8 +179,10 @@ class Register(View):
             user.save()
 
             login(request, user)
+            messages.success(request, 'Apply for Vendorship')
             return redirect('apply')
         else:
+            messages.success(request, 'Welcome,Account created successfully, login with your password')
             return redirect('login')
 
 
@@ -191,10 +240,10 @@ class VendorApply(View):
 
             # Save the user instance
             user.save()
-
+            messages.success(request, 'Account created successfully, vendor status..Pending')
             return redirect('account')
         else:
-            messages.error(request, 'Please fill all required fields')
+            messages.info(request, 'Please fill all required fields')
             return render(request, 'dash/vendor-apply.html', {'form': form})
 
 
@@ -225,6 +274,7 @@ class Login(View):
     def get(self, request):
         return render(request, 'user/page-login.html')
 
+    
     def post(self, request):
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -237,32 +287,32 @@ class Login(View):
             if user.is_superuser and user.check_password(password):
                 # Log in the superuser if password match
                 login(request, user)
-                messages.success(request, 'Welcome back')
+                messages.success(request, 'Welcome back, Admin!')
                 return redirect('account')
-            if not password:
+
+            # For regular users, check email verification
+            if not user.is_emailverified:
+                # Redirect to reverifyit page if email is not verified
+                messages.info(request, 'Verify your email')
+                return redirect('reverifyit')
+
+            # Authenticate the user
+            user = authenticate(request, email=email, password=password)
+            if user:
+                login(request, user)
+                
+                if user.is_vendor:
+                    messages.success(request, 'Welcome back, Vendor!')
+                    return redirect('vendor')
+                else:
+                    messages.success(request, 'Welcome back, Customer!')
+                    return redirect('account')
+            else:
                 messages.error(request, 'Invalid input')
                 return redirect('login')
 
-            else:
-                # For regular users, check email verification
-                user = User.objects.filter(is_emailverified=True).first()
-
-                if password and email:
-                    user = authenticate(request, email=email, password=password)
-                    if user:
-                        login(request, user)
-                        messages.success(request, 'Welcome back!')
-                        if user.is_vendor:
-                            messages.success(request, 'Welcome back, Vendor!')
-                            return redirect('vendor')
-                        else:
-                            return redirect('account')
-                    else:
-                        messages.error(request, 'Invalid input')
-                        return redirect('login')    
-
         except User.DoesNotExist:
-            messages.success(request, 'Sign up to get started')
+            messages.info(request, 'Sign up to get started')
             return redirect('signup')
 
 
@@ -278,4 +328,81 @@ def Logout(request):
 
 
 
+class ForgotPassword(View):
+  def get(self, request):
+    messages.success(request, 'Enter your email here to get a password reset link')
+    return render(request, 'user/page-forgot-password.html')
 
+  def post(self, request):
+    email = request.POST.get('email')
+
+    try:
+      user = User.objects.get(email=email)
+    except User.DoesNotExist:
+      messages.error(request, 'User with this email address does not exist.')
+    #   return HttpResponse('', status=404)
+
+    # Generate a one-time use token for password reset
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    token = default_token_generator.make_token(user)
+
+    # Construct the password reset link
+    current_site = get_current_site(request)
+    reset_link = f"http://{current_site.domain}{reverse('reset-password', args=(uid, token))}".strip('/')
+
+    # Send the password reset link to the user's email
+    send_mail(
+      'Password Reset',
+      f'Use this link to reset your password: {reset_link}',
+      'emchadexglobal@gmail.com',
+      [email],
+      fail_silently=False,
+    )
+    messages.success(request, 'A password reset link has been sent to your email.')
+    return render(request, 'user/page-forgot-password.html')
+    
+
+
+
+class PasswordReset(View):
+    def get(self, request, uidb64, token):
+        try:
+            # Decode the user ID from base64
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            # Get the user based on the decoded ID
+            user = User.objects.get(pk=uid)
+
+            # Check if the token is valid for the user
+            if default_token_generator.check_token(user, token):
+                # Render the password reset form
+                messages.success(request, 'Reset your password here.')
+                return render(request, 'user/page-reset-password.html', {'validlink': True, 'uidb64': uidb64, 'token': token})
+            
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist, MultipleObjectsReturned):
+            pass
+
+        # If the link is invalid,
+        messages.info(request, 'Enter your email for password reset link.') 
+        return render(request, 'user/page-forgot-password.html')
+    
+
+
+    def post(self, request, uidb64, token):
+        # Handle the form submission to set a new password
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+
+        password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+ 
+        if password != confirm_password:
+            messages.error(request, 'Passwords do not match.')
+            return render(request, 'user/page-reset-password.html', {'error': 'Passwords do not match'})
+
+        # Set the new password
+        user.set_password(password)
+        user.save()
+
+        # Redirect to the login page
+        messages.success(request, 'Password reset success, login with your new password')
+        return redirect('login')
