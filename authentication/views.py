@@ -342,7 +342,7 @@ class ForgotPassword(View):
       user = User.objects.get(email=email)
     except User.DoesNotExist:
       messages.error(request, 'User with this email address does not exist.')
-    #   return HttpResponse('', status=404)
+      return redirect('signup')
 
     # Generate a one-time use token for password reset
     uid = urlsafe_base64_encode(force_bytes(user.pk))

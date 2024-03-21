@@ -30,13 +30,18 @@
         input {
             border: 2px solid black;
         }
+
+        a {
+            font-weight: bold;
+            font-size: 16px;
+        }
     </style>
 
     <form method="post">
         {% include "messages/message.html" %}
         {% csrf_token %}
 
-        <h1 class="login">Welcome<br><span class="create">Sign up to begin</span></h1> <br>
+        <h1 class="login">Welcome<br><span class="create">Sign up to begin</span></h1><br>
 
         <div class="inputbox">
             <fieldset>
@@ -71,8 +76,9 @@
         </div> <br>
 
         <button id="btn" type="submit" class="btn">Sign Up</button>
-        <div class="registerlink">
-        <br>
+        {% comment %} <div class="registerlink"> {% endcomment %}
+        <br><br>
+        <a href='{% url "login" %}'>Already have an account? Login here</a>
     </form>
 
 </body>

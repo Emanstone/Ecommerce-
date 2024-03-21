@@ -145,9 +145,9 @@ AUTH_USER_MODEL = 'authentication.Registration'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP host
-EMAIL_PORT =  465  # Replace with your SMTP port
+EMAIL_PORT =  465              # Replace with your SMTP port
 EMAIL_USE_SSL = True
-# EMAIL_USE_TLS = True  # Use TLS encryption for security
+#EMAIL_USE_TLS = True          # Use TLS encryption for security
 EMAIL_HOST_USER = 'emchadexglobal@gmail.com'  # Replace with your email address
 EMAIL_HOST_PASSWORD = 'ewhkaqtxojttbbub'
 

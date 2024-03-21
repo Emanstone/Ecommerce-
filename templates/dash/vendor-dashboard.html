@@ -236,7 +236,7 @@
                                 <ul>
                                     <li class="hot-deals"><img src="{% static '/imgs/theme/icons/icon-hot.svg' %}" alt="hot deals" /><a href='shop-grid-right.html'>Deals</a></li>
                                     <li>
-                                        <a class='active' href='index.html'>Home <i class="fi-rs-angle-down"></i></a>
+                                        <a class='active' href='{% url "home" %}'>Home <i class="fi-rs-angle-down"></i></a>
                                         <ul class="sub-menu">
                                             <li><a href='{% url "home" %}'>Home 1</a></li>
                                             <li><a href='index-2.html'>Home 2</a></li>
@@ -1701,7 +1701,7 @@
                                     <button class="btn" type="submit">Subscribe</button>
                                 </form>
                             </div>
-                            <img src="{% static '/imgs/banner/banner-13.png" alt="newsletter" />
+                            <img src="{% static '/imgs/banner/banner-13.png' %}" alt="newsletter" />
                         </div>
                     </div>
                 </div>
