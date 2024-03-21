@@ -73,7 +73,7 @@ class Verify(View):
         entered_otp = request.POST.get('otp')
         try:
             user = User.objects.get(otp=entered_otp, is_emailverified=False)
-            if user.otp_created_at and timezone.now() - user.otp_created_at <= timedelta(minutes=1):
+            if user.otp_created_at and timezone.now() - user.otp_created_at <= timedelta(minutes=5):
                 user.is_emailverified = True
                 user.save()
                 login(request, user)
