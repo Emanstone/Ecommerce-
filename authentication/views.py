@@ -56,7 +56,7 @@ class Signup(View):
         send_now = send_mail(subject, body, from_email, [to_email])
         
         if send_now:
-            messages.success(request, 'Success! OTP sent!')
+            messages.success(request, 'Success!  OTP sent!')
             return redirect('verifyit')
         messages.error(request, 'Sign up')
         return render(request, 'user/signup.html')
@@ -77,15 +77,15 @@ class Verify(View):
                 user.is_emailverified = True
                 user.save()
                 login(request, user)
-                messages.success(request, 'Success! Create your account here.')
+                messages.success(request, 'Success!  Create your account here.')
                 return redirect('registerit')
             else:
                 # user.delete()
-                messages.error(request, 'OTP is expired,resend another one here')
+                messages.error(request, 'OTP is expired.  Resend another one here')
                 return redirect('reverifyit')
             
         except User.DoesNotExist:
-            messages.error(request, 'User not found, sign up.')
+            messages.error(request, 'User not found, signup.')
             return redirect('signup')
             
 
@@ -122,10 +122,10 @@ class ReverifyOtp(View):
         send_now = send_mail(subject, body, from_email, [to_email])
 
         if send_now:
-            messages.success(request, 'Success! New OTP sent!')
+            messages.success(request, 'Success!  New OTP sent!')
             return redirect('verifyit') 
         else:
-            messages.error(request, 'Failed to send new OTP, resend again here.')
+            messages.error(request, 'Failed to send new OTP.  Resend again here.')
             return redirect('reverifyit')
 
 
@@ -154,10 +154,12 @@ class Register(View):
         entered_email = request.POST.get('email')
 
         if entered_email != request.user.email:
-            return HttpResponse('email_mismatch')
+            messages.error(request, 'email_mismatch')
+            return redirect('registerit')
 
         if entered_username != request.user.username:
-            return HttpResponse('username_mismatch')
+            messages.error(request, 'username_mismatch')
+            return redirect('registerit')
 
         # Update user password provided in the form
         password = request.POST['password']
@@ -186,7 +188,7 @@ class Register(View):
             messages.success(request, 'Apply for Vendorship')
             return redirect('apply')
         else:
-            messages.success(request, 'Account created successfully. Login!')
+            messages.success(request, 'Account created successfully.  Login!')
             return redirect('login')
 
 
@@ -242,7 +244,7 @@ class VendorApply(View):
 
             # Save the user instance
             user.save()
-            messages.success(request, 'Success! Account created, vendor status..Pending')
+            messages.success(request, 'Success!  Account created, vendor status is Pending')
             return redirect('account')
         else:
             messages.info(request, 'Please fill all required fields')
@@ -314,7 +316,7 @@ class Login(View):
                 return redirect('login')
 
         except User.DoesNotExist:
-            messages.error(request, 'Sign up to get started')
+            messages.error(request, 'Signup to get started')
             return redirect('signup')
 
 
@@ -332,7 +334,7 @@ def Logout(request):
 
 class ForgotPassword(View):
   def get(self, request):
-    messages.success(request, 'Enter your email here..')
+    messages.success(request, 'Enter your email here')
     return render(request, 'user/page-forgot-password.html')
 
   def post(self, request):
@@ -341,7 +343,7 @@ class ForgotPassword(View):
     try:
       user = User.objects.get(email=email)
     except User.DoesNotExist:
-      messages.error(request, 'User with this email address does not exist.')
+      messages.error(request, 'User with this email address does not exist')
       return redirect('signup')
 
     # Generate a one-time use token for password reset
@@ -384,7 +386,7 @@ class PasswordReset(View):
             pass
 
         # If the link is invalid,
-        messages.info(request, 'Enter your email for password reset link.') 
+        messages.info(request, 'Enter your email for password reset link') 
         return render(request, 'user/page-forgot-password.html')
     
 
@@ -398,13 +400,14 @@ class PasswordReset(View):
         confirm_password = request.POST.get('confirm_password')
  
         if password != confirm_password:
-            messages.error(request, 'Passwords do not match.')
-            return render(request, 'user/page-reset-password.html', {'error': 'Passwords do not match'})
+            messages.error(request, 'Passwords do not match')
+            # return render(request, 'user/page-reset-password.html', {'error': 'Passwords do not match'})
+            return render(request, 'user/page-reset-password.html')
 
         # Set the new password
         user.set_password(password)
         user.save()
 
         # Redirect to the login page
-        messages.success(request, 'Password reset success! login.')
+        messages.success(request, 'Password reset success!  Login')
         return redirect('login')
