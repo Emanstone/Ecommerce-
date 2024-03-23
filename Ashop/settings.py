@@ -129,10 +129,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 MESSAGE_TAGS={
-    messages.SUCCESS:'alert-success',
-    messages.ERROR:'alert-danger',
-    messages.INFO:'alert-info',
-    messages.WARNING:'alert-warning',
+    messages.SUCCESS:'alert-success',     # Green
+    messages.ERROR:'alert-danger',        # Red
+    messages.WARNING:'alert-warning',     # Yellow
+    # messages.INFO:'alert-info',
 }
 
 

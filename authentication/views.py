@@ -56,7 +56,7 @@ class Signup(View):
         send_now = send_mail(subject, body, from_email, [to_email])
         
         if send_now:
-            messages.success(request, 'Success!  OTP sent!')
+            messages.success(request, 'Success!  OTP sent')
             return redirect('verifyit')
         messages.error(request, 'Sign up')
         return render(request, 'user/signup.html')
@@ -77,7 +77,7 @@ class Verify(View):
                 user.is_emailverified = True
                 user.save()
                 login(request, user)
-                messages.success(request, 'Success!  Create your account here.')
+                messages.success(request, 'Success!  Create your account here')
                 return redirect('registerit')
             else:
                 # user.delete()
@@ -85,7 +85,7 @@ class Verify(View):
                 return redirect('reverifyit')
             
         except User.DoesNotExist:
-            messages.error(request, 'User not found, signup.')
+            messages.error(request, 'User not found, signup')
             return redirect('signup')
             
 
@@ -105,7 +105,7 @@ class ReverifyOtp(View):
         try:
             user = User.objects.get(email=entered_email, is_emailverified=False)
         except User.DoesNotExist:
-            messages.error(request, 'Invalid email address.')
+            messages.error(request, 'Invalid email address')
             return redirect('reverifyit')
 
         # Generate new OTP
@@ -122,7 +122,7 @@ class ReverifyOtp(View):
         send_now = send_mail(subject, body, from_email, [to_email])
 
         if send_now:
-            messages.success(request, 'Success!  New OTP sent!')
+            messages.success(request, 'Success!  New OTP sent')
             return redirect('verifyit') 
         else:
             messages.error(request, 'Failed to send new OTP.  Resend again here.')
@@ -247,7 +247,7 @@ class VendorApply(View):
             messages.success(request, 'Success!  Account created, vendor status is Pending')
             return redirect('account')
         else:
-            messages.info(request, 'Please fill all required fields')
+            messages.warning(request, 'Please fill all required fields')
             return render(request, 'dash/vendor-apply.html', {'form': form})
 
 
@@ -296,8 +296,7 @@ class Login(View):
 
             # For regular users, check email verification
             if not user.is_emailverified:
-                # Redirect to reverifyit page if email is not verified
-                messages.info(request, 'Verify your email')
+                messages.warning(request, 'Verify your email')
                 return redirect('reverifyit')
 
             # Authenticate the user
@@ -316,7 +315,7 @@ class Login(View):
                 return redirect('login')
 
         except User.DoesNotExist:
-            messages.error(request, 'Signup to get started')
+            messages.error(request, 'User does not exist. Signup to get started.')
             return redirect('signup')
 
 
@@ -342,6 +341,9 @@ class ForgotPassword(View):
 
     try:
       user = User.objects.get(email=email)
+      if not user.is_emailverified:
+        messages.error(request, 'Email not verified')
+        return redirect('reverifyit')
     except User.DoesNotExist:
       messages.error(request, 'User with this email address does not exist')
       return redirect('signup')
@@ -386,7 +388,7 @@ class PasswordReset(View):
             pass
 
         # If the link is invalid,
-        messages.info(request, 'Enter your email for password reset link') 
+        messages.error(request, 'Reset-link is used. Add your email for a new one.') 
         return render(request, 'user/page-forgot-password.html')
     
 
@@ -401,7 +403,6 @@ class PasswordReset(View):
  
         if password != confirm_password:
             messages.error(request, 'Passwords do not match')
-            # return render(request, 'user/page-reset-password.html', {'error': 'Passwords do not match'})
             return render(request, 'user/page-reset-password.html')
 
         # Set the new password
