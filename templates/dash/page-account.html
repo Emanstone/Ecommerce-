@@ -140,13 +140,13 @@
                                     </a>
                                     {% comment %} <a href='page-account.html'><span class="lable ml-0">Account</span></a> {% endcomment %}
                                     {% if request.user.is_authenticated %}
-                                    <a href='page-account.html'><span class="lable ml-0">{{request.user.username|slice:":7"}}</span></a>
+                                    <a href='{% url "account" %}'><span class="lable ml-0">{{request.user.username|slice:":7"}}</span></a>
                                     {% else %}
-                                    <a href='page-account.html'><span class="lable ml-0">Account</span></a>
+                                    <a href='#'><span class="lable ml-0">Account</span></a>
                                     {% endif %}
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                         <ul>
-                                            <li><a href='page-account.html'><i class="fi fi-rs-user mr-10"></i>My Account</a></li>
+                                            <li><a href='{% url "account" %}'><i class="fi fi-rs-user mr-10"></i>My Account</a></li>
                                             {% if request.user.is_authenticated and request.user.is_vendor %}
                                             <li><a href='{% url "vendor" %}'><i class="fi fi-rs-sign-out mr-10"></i>My-vendor-page</a></li>
                                             {% endif %}
@@ -660,12 +660,12 @@
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href='index.html' rel='nofollow'><i class="fi-rs-home mr-5"></i>Home</a>
+                    <a href='{% url "home" %}' rel='nofollow'><i class="fi-rs-home mr-5"></i>Home</a>
                     <span></span> Pages <span></span> My Account
                 </div>
             </div>
         </div>
-        <div class="page-content pt-150 pb-150">
+        <div class="page-content pt-30 pb-50">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 m-auto">
@@ -676,6 +676,11 @@
                                         <li class="nav-item">
                                             <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
                                         </li>
+                                        {% if request.user.is_authenticated and not request.user.is_vendor %}
+                                        <li class="nav-item">
+                                            <a class='nav-link' href='{% url "apply" %}'><i class="fi-rs-sign-out mr-10 fw-bold" style="color: rgb(59, 184, 125); font-size: 25px;"></i>Apply for Vendorship</a>
+                                        </li>
+                                        {% endif %}
                                         <li class="nav-item">
                                             <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
                                         </li>

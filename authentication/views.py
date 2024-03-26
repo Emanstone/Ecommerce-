@@ -17,8 +17,9 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.utils.encoding import force_str
 from django.core.exceptions import MultipleObjectsReturned
-from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
+
+from django.contrib.auth.backends import ModelBackend
 
 
 # Create your views here.
@@ -27,7 +28,7 @@ User = get_user_model()  # Get the active user model
 
 class Signup(View):
     def get(self, request):
-        return render(request, 'user/signup.html')
+        return render(request, 'user/page-signup.html')
     
 
     def post(self, request):
@@ -67,15 +68,17 @@ class Signup(View):
 
 class Verify(View):
     def get(self, request):
-        return render(request, 'user/verify.html')
+        return render(request, 'user/page-verify.html')
 
     def post(self, request):
         entered_otp = request.POST.get('otp')
         try:
             user = User.objects.get(otp=entered_otp, is_emailverified=False)
-            if user.otp_created_at and timezone.now() - user.otp_created_at <= timedelta(minutes=2):
+            if user.otp_created_at and timezone.now() - user.otp_created_at <= timedelta(minutes=1):
                 user.is_emailverified = True
                 user.save()
+                backend = ModelBackend()
+                user.backend = f'{backend.__module__}.{backend.__class__.__name__}'
                 login(request, user)
                 messages.success(request, 'Success!  Create your account here')
                 return redirect('registerit')
@@ -91,10 +94,11 @@ class Verify(View):
 
 
 
+
 class ReverifyOtp(View):
     def get(self, request):
 
-        return render(request, 'user/reverify-otp.html')
+        return render(request, 'user/page-reverify.html')
 
 
     def post(self, request):
@@ -183,27 +187,33 @@ class Register(View):
             user.is_vendor = False
             user.vendor_application_status = 'pending'
             user.save()
-
+            backend = ModelBackend()
+            user.backend = f'{backend.__module__}.{backend.__class__.__name__}'
             login(request, user)
-            messages.success(request, 'Apply for Vendorship')
+            # messages.success(request, 'Apply for Vendorship')
             return redirect('apply')
         else:
-            messages.success(request, 'Account created successfully.  Login!')
+            messages.success(request, 'Account created. Login with your password')
             return redirect('login')
 
 
 
 
 
-
-class UserAccount(View):
+class UserAccount(LoginRequiredMixin, View):
     def get(self, request):
+        # Update the logged-in user email
+        request.user.is_emailverified = True
+        request.user.save()  # Save changes to database
+
+        if request.user.socialaccount_set.exists() and request.user.is_vendor==True:
+            messages.success(request, 'Welcome back Vendor!')
+        else:
+            messages.success(request, 'Welcome back Customer!')
         return render(request, 'dash/page-account.html')
 
-
     def post(self, request):
-        pass    
-        
+        pass
 
 
 
@@ -211,9 +221,12 @@ class UserAccount(View):
 
 class VendorApply(View):
     def get(self, request):
-        
+        if not request.user.is_authenticated:
+            messages.error(request, 'User not authenticated')
+            return redirect('reverifyit')        
         form = VendorApplyForm()  # Create an empty form instance
-        return render(request, 'dash/vendor-apply.html', {'form': form})
+        messages.success(request, 'Apply for Vendorship')
+        return render(request, 'dash/page-vendor-apply.html', {'form': form})
 
 
     def post(self, request):
@@ -221,7 +234,7 @@ class VendorApply(View):
             messages.error(request, 'User not authenticated')
             return redirect('reverifyit')
 
-        # Retrieve the logged-in user
+        # Retrieve current user
         user = request.user
 
         # Initialize the form with the POST data
@@ -244,8 +257,8 @@ class VendorApply(View):
 
             # Save the user instance
             user.save()
-            messages.success(request, 'Success!  Account created, vendor status is Pending')
-            return redirect('account')
+            messages.success(request, 'Vendor status, Pending. Login with password')
+            return redirect('login')
         else:
             messages.warning(request, 'Please fill all required fields')
             return render(request, 'dash/vendor-apply.html', {'form': form})
@@ -254,8 +267,13 @@ class VendorApply(View):
 
 
 
+
 class VendorPage(View):
     def get(self, request):
+        if not request.user.is_authenticated:
+            messages.error(request, 'User not authenticated')
+            return redirect('reverifyit')
+        messages.success(request, 'Welcome back Vendor')
         return render(request, 'dash/vendor-dashboard.html')
     
 
@@ -289,9 +307,12 @@ class Login(View):
 
             # Check if the user is a superuser
             if user.is_superuser and user.check_password(password):
+                # Specify the authentication backend
+                backend = ModelBackend()
+                user.backend = f'{backend.__module__}.{backend.__class__.__name__}'
                 # Log in the superuser if password match
                 login(request, user)
-                messages.success(request, 'Welcome back, Admin!')
+                # messages.success(request, 'Welcome back, Admin!')
                 return redirect('account')
 
             # For regular users, check email verification
@@ -305,18 +326,19 @@ class Login(View):
                 login(request, user)
                 
                 if user.is_vendor:
-                    messages.success(request, 'Welcome back, Vendor!')
-                    return redirect('vendor')
+                    # messages.success(request, 'Welcome back, Vendor!')
+                    return redirect('account')
                 else:
-                    messages.success(request, 'Welcome back, Customer!')
+                    # messages.success(request, 'Welcome back, Customer!')
                     return redirect('account')
             else:
                 messages.error(request, 'Invalid input')
                 return redirect('login')
 
         except User.DoesNotExist:
-            messages.error(request, 'User does not exist. Signup to get started.')
+            messages.error(request, 'User does not exist. Signup here.')
             return redirect('signup')
+
 
 
 
@@ -333,7 +355,7 @@ def Logout(request):
 
 class ForgotPassword(View):
   def get(self, request):
-    messages.success(request, 'Enter your email here')
+    messages.success(request, 'Proceed to reset your password')
     return render(request, 'user/page-forgot-password.html')
 
   def post(self, request):
@@ -353,8 +375,7 @@ class ForgotPassword(View):
     token = default_token_generator.make_token(user)
 
     # Construct the password reset link
-    current_site = get_current_site(request)
-    reset_link = f"http://{current_site.domain}{reverse('reset-password', args=(uid, token))}".strip('/')
+    reset_link = f"http://{request.get_host()}{reverse('reset-password', args=(uid, token))}".strip('/')
 
     # Send the password reset link to the user's email
     send_mail(
@@ -412,3 +433,49 @@ class PasswordReset(View):
         # Redirect to the login page
         messages.success(request, 'Password reset success!  Login')
         return redirect('login')
+
+
+
+
+
+
+
+
+
+
+# class SocialAuth(View):   
+#     def get(self, request):
+#         if not request.user.is_authenticated:
+#             messages.error(request, 'User not authenticated')
+#             return redirect('signup')
+        
+#         # messages.success(request, 'Success! Complete your registration')                
+#         return render(request, 'user/page-social.html')
+
+
+#     def post(self, request):
+#         if not request.user.is_authenticated:
+#             messages.error(request, 'User not authenticated')
+#             return redirect('reverifyit')
+
+#         # Retrieve the logged-in user
+#         user = request.user
+        
+#         # Check if the user selected the vendor option
+#         is_vendor = request.POST.get('payment_option') == 'is_vendor'
+#         if is_vendor:
+#             user.is_vendor = False
+#             user.vendor_application_status = 'pending'
+#             user.save()
+
+#             backend = ModelBackend()
+#             user.backend = f'{backend.__module__}.{backend.__class__.__name__}'
+
+#             login(request, user)
+#             messages.success(request, 'Apply for Vendorship')
+#             return redirect('apply')
+#         else:
+#             messages.success(request, 'Account created successfully.  Login!')
+#             return redirect('account')
+
+

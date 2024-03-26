@@ -2,6 +2,8 @@
 <html class="no-js" lang="en">
 
 {% load static %}
+{% comment %} SSSSSSSSSSS {% endcomment %}
+{% comment %} {% load socialaccount %} {% endcomment %}
 <!-- Mirrored from nest-frontend.netlify.app/page-register by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 18 Jan 2024 19:09:18 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
@@ -22,7 +24,6 @@
 </head>
 {% block content %}
 <body>
-
     <header class="header-area header-style-1 header-height-2">
         {% include "messages/message.html" %}
         <div class="mobile-promotion">
@@ -645,8 +646,8 @@
             </div>
         </div>
     </div>
-
     <!--End header-->
+
     <main class="main pages">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
@@ -656,12 +657,13 @@
                 </div>
             </div>
         </div>
-        <div class="page-content pt-150 pb-150">
+        <div class="page-content pt-20 pb-40">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-8 col-lg-10 col-md-12 m-auto">
+
                         <div class="row">
-                            <div class="col-lg-6 col-md-8">
+                            <div class="col-lg-9 col-md-8 mx-auto">
                                 <div class="login_wrap widget-taber-content background-white">
                                     <div class="padding_eight_all bg-white">
                                         <div class="heading_s1">
@@ -724,7 +726,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 pr-30 d-none d-lg-block">
+
+                            {% comment %} <div class="col-lg-6 pr-30 d-none d-lg-block">
                                 <div class="card-login mt-115">
                                     <a href="#" class="social-login facebook-login">
                                         <img src="{% static '/imgs/theme/icons/logo-facebook.svg' %}" alt="" />
@@ -738,7 +741,8 @@
                                         <img src="{% static '/imgs/theme/icons/logo-apple.svg' %}" alt="" />
                                         <span>Continue with Apple</span>
                                     </a>
-                                </div>
+                                </div> {% endcomment %}
+
                             </div>
                         </div>
                     </div>

@@ -40,6 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authentication',
+    'django.contrib.sites',  # new
+    # 3rd party
+    'allauth', # new
+    'allauth.account', # new
+    'allauth.socialaccount', # new
+    # social providers
+    'allauth.socialaccount.providers.google', # new
 ]
 
 MIDDLEWARE = [
@@ -50,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'   # new
 ]
 
 ROOT_URLCONF = 'Ashop.urls'
@@ -153,5 +161,24 @@ EMAIL_HOST_PASSWORD = 'ewhkaqtxojttbbub'
 
 
 
-# Register 665-700
-# login 501 -506
+
+SITE_ID = 1
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE": ["profile", "email"],
+        "AUTH_PARAMS": {"access_type": "online"},
+    }
+}
+
+
+LOGIN_REDIRECT_URL = "account"
+SOCIALACCOUNT_LOGIN_ON_GET = True  # This shows google's authorization page, skipping a sign-in page that pops up
+SOCIALACCOUNT_AUTO_SIGNUP = True   # This automatically signs up a user after using google to sign in
+ACCOUNT_LOGOUT_ON_GET = False
+LOGOUT_REDIRECT_URL = "login/"
+AUTHENTICATION_BACKENDS = [
+    "allauth.account.auth_backends.AuthenticationBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+

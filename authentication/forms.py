@@ -16,6 +16,9 @@ class VendorApplyForm(forms.ModelForm):
         # self.fields['business_description'].widget.attrs['placeholder'] = 'Enter business description'
         self.fields['website_url'].widget.attrs['placeholder'] = 'Enter website URL (optional)'
 
+        for field in self.fields.values():
+            field.widget.attrs['style'] = 'border:1px solid black;'
+
         # Set required attribute for all fields except website_url
         for field_name, field in self.fields.items():
             if field_name != 'website_url':

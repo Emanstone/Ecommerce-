@@ -41,38 +41,38 @@
         {% include "messages/message.html" %}
         {% csrf_token %}
 
-        <h2 class="login">Welcome<br><span class="create">Sign up to begin</span></h2><br>
+        <h2 class="login">Welcome, <span class="create">signup to begin</span></h2><br>
 
         <div class="inputbox">
-            <fieldset>
-                <legend>EMAIL</legend>
-                <!-- <i class="fa-solid fa-user icon"></i> -->
-                <input type="email" name="email" placeholder="email">
-            </fieldset>
+            
+            <legend>EMAIL</legend>
+            <!-- <i class="fa-solid fa-user icon"></i> -->
+            <input type="email" name="email" placeholder="email">
+        
         </div>
 
         <div class="inputbox">
-            <fieldset>
-                <legend>USERNAME</legend>
-                <!-- <i class="fa-solid fa-lock icon"></i> -->
-                <input type="text" name="username" placeholder="username">
-            </fieldset>
+            
+            <legend>USERNAME</legend>
+            <!-- <i class="fa-solid fa-lock icon"></i> -->
+            <input type="text" name="username" placeholder="username">
+            
         </div>
 
         <div class="inputbox">
-            <fieldset>
-                <legend>FIRST NAME</legend>
-                <!-- <i class="fa-solid fa-user icon"></i> -->
-                <input type="text" name="first_name" placeholder="first name">
-            </fieldset>
+            
+            <legend>FIRST NAME</legend>
+            <!-- <i class="fa-solid fa-user icon"></i> -->
+            <input type="text" name="first_name" placeholder="first name">
+            
         </div>
 
         <div class="inputbox">
-            <fieldset>
-                <legend>LAST NAME</legend>
-                <!-- <i class="fa-solid fa-user icon"></i> -->
-                <input type="text" name="last_name" placeholder="last name">
-            </fieldset>
+           
+            <legend>LAST NAME</legend>
+            <!-- <i class="fa-solid fa-user icon"></i> -->
+            <input type="text" name="last_name" placeholder="last name">
+            
         </div> <br>
 
         <button id="btn" type="submit" class="btn">Sign Up</button>
