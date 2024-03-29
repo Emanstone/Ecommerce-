@@ -6,7 +6,7 @@
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="utf-8" />
-    <title>Register</title>
+    <title>Reverify</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,7 +22,7 @@
 </head>
 {% block content %}
 <body>
-    {% if request.user.is_authenticated %}
+    {% comment %} {% if request.user.is_authenticated %}
     <header class="header-area header-style-1 header-height-2">
         
         <div class="mobile-promotion">
@@ -645,7 +645,7 @@
             </div>
         </div>
     </div>
-    {% endif %}
+    {% endif %} {% endcomment %}
     <!--End header-->
     
     <main class="main pages">

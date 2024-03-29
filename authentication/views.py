@@ -74,7 +74,7 @@ class Verify(View):
         entered_otp = request.POST.get('otp')
         try:
             user = User.objects.get(otp=entered_otp, is_emailverified=False)
-            if user.otp_created_at and timezone.now() - user.otp_created_at <= timedelta(minutes=1):
+            if user.otp_created_at and timezone.now() - user.otp_created_at <= timedelta(minutes=2):
                 user.is_emailverified = True
                 user.save()
                 backend = ModelBackend()
@@ -206,11 +206,12 @@ class UserAccount(LoginRequiredMixin, View):
         request.user.is_emailverified = True
         request.user.save()  # Save changes to database
 
-        if request.user.socialaccount_set.exists() and request.user.is_vendor==True:
+        if request.user.is_vendor:
             messages.success(request, 'Welcome back Vendor!')
         else:
             messages.success(request, 'Welcome back Customer!')
         return render(request, 'dash/page-account.html')
+
 
     def post(self, request):
         pass
@@ -273,7 +274,7 @@ class VendorPage(View):
         if not request.user.is_authenticated:
             messages.error(request, 'User not authenticated')
             return redirect('reverifyit')
-        messages.success(request, 'Welcome back Vendor')
+        messages.success(request, 'Welcome to Vendor page')
         return render(request, 'dash/vendor-dashboard.html')
     
 
@@ -346,7 +347,7 @@ class Login(View):
 
 def Logout(request):
     logout(request)
-    messages.success(request, 'Logged out successfully')
+    messages.success(request, 'Signed out successfully')
     return redirect('login')
 
 
@@ -443,39 +444,10 @@ class PasswordReset(View):
 
 
 
-# class SocialAuth(View):   
-#     def get(self, request):
-#         if not request.user.is_authenticated:
-#             messages.error(request, 'User not authenticated')
-#             return redirect('signup')
-        
-#         # messages.success(request, 'Success! Complete your registration')                
-#         return render(request, 'user/page-social.html')
 
 
-#     def post(self, request):
-#         if not request.user.is_authenticated:
-#             messages.error(request, 'User not authenticated')
-#             return redirect('reverifyit')
-
-#         # Retrieve the logged-in user
-#         user = request.user
-        
-#         # Check if the user selected the vendor option
-#         is_vendor = request.POST.get('payment_option') == 'is_vendor'
-#         if is_vendor:
-#             user.is_vendor = False
-#             user.vendor_application_status = 'pending'
-#             user.save()
-
-#             backend = ModelBackend()
-#             user.backend = f'{backend.__module__}.{backend.__class__.__name__}'
-
-#             login(request, user)
-#             messages.success(request, 'Apply for Vendorship')
-#             return redirect('apply')
+# if request.user.socialaccount_set.exists() and request.user.is_vendor==True:
+#             messages.success(request, 'Welcome back Vendor!')
 #         else:
-#             messages.success(request, 'Account created successfully.  Login!')
-#             return redirect('account')
-
-
+#             messages.success(request, 'Welcome back Customer!')
+#         return render(request, 'dash/page-account.html')

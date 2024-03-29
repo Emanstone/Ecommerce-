@@ -8,7 +8,7 @@
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="utf-8" />
-    <title>Register</title>
+    <title>Signup</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,9 +25,8 @@
 {% block content %}
 <body>
     {% comment %} {% include "messages/message.html" %} {% endcomment %}
-    {% if request.user.is_authenticated %}
+    {% comment %} {% if request.user.is_authenticated %}
     <header class="header-area header-style-1 header-height-2">
-        {% comment %} {% include "messages/message.html" %} {% endcomment %}
         <div class="mobile-promotion">
             <span>Grand opening, <strong>up to 15%</strong> off all items. Only <strong>3 days</strong> left</span>
         </div>
@@ -648,7 +647,7 @@
             </div>
         </div>
     </div>
-    {% endif %}
+    {% endif %} {% endcomment %}
     <!--End header-->
 
     <main class="main pages">
@@ -664,13 +663,13 @@
         <div class="page-content pt-10 pb-40">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-8 col-lg-10 col-md-12 m-auto">
+                    <div class="col-xl-8 col-lg-12 col-md-12 m-auto">
                         <div class="row">
 
-                            <div class="col-lg-6 col-md-8">
+                            <div class="col-lg-6 col-md-8 mx-auto">
                                 <div class="login_wrap widget-taber-content background-white">
                                     <div class="padding_eight_all bg-white">
-                                        <div class="heading_s1">
+                                        <div class="heading_s1 text-center">
                                             {% comment %} <h3 class="mb-5">Welcome, {{request.user.first_name}}</h3><br> {% endcomment %}
                                             {% comment %} <h1 class="mb-5">Create an Account</h1> {% endcomment %}
                                             <h2 class="mb-5">Welcome, <span class="create">signup here to proceed</span></h2><br>
@@ -719,7 +718,7 @@
                                             </div> {% endcomment %}
 
                                             
-                                            <div class="login_footer form-group mb-50">
+                                            {% comment %} <div class="login_footer form-group mb-50">
                                                 <div class="chek-form">
                                                     <div class="custome-checkbox">
                                                         <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox12" value="" />
@@ -727,28 +726,29 @@
                                                     </div>
                                                 </div>
                                                 <a href='page-privacy-policy.html'><i class="fi-rs-book-alt mr-5 text-muted"></i>Lean more</a>
-                                            </div>
-                                            <div class="form-group mb-30">
+                                            </div> {% endcomment %}
+
+                                            <div class="form-group mb-30 text-center mt-30">
                                                 <button type="submit" class="btn btn-fill-out btn-block hover-up font-weight-bold" name="submit">Submit &amp; Signup</button>
                                             </div>
-                                            <p class="font-xs text-muted"><strong>Note:</strong>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy</p>
+                                            {% comment %} <p class="font-xs text-muted text-center"><strong>Note:</strong>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy</p> {% endcomment %}
                                         </form>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-lg-6 pr-30 d-none d-lg-block">
+                            
+                            <div class="col-lg-6 pr-30 d-none d-lg-block ml-4">
                                 <div class="card-login mt-155" style="border: 1px solid black;">
                                     
-                                    <a href="{% provider_login_url 'google' %}" class="social-login google-login" style="border: 1px solid black;">
+                                    <a href="{% provider_login_url 'google' %}" class="social-login google-login px-4" style="border: 1px solid black;">
                                         <img src="{% static '/imgs/theme/icons/logo-google.svg' %}" alt="" />
                                         <span>Signup with Google</span>
                                     </a>
                                     <a href="#" class="social-login apple-login">
-                                        <img src="{% static '/imgs/theme/logo.svg' %}" alt="" />
-                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR</span>
+                                        {% comment %} <img src="{% static '/imgs/theme/logo.svg' %}" alt="" /> {% endcomment %}
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR</span>
                                     </a><br>
-                                    <a href="#" class="social-login facebook-login">
+                                    <a href="#" class="social-login facebook-login px-3">
                                         <img src="{% static '/imgs/theme/icons/logo-facebook.svg' %}" alt="" />
                                         <span>Signup with Facebook</span>
                                     </a>

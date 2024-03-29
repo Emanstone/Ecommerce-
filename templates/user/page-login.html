@@ -23,9 +23,8 @@
 </head>
 
 <body>
-    {% if request.user.is_authenticated %}
+    {% comment %} {% if request.user.is_authenticated %}
     <header class="header-area header-style-1 header-height-2">
-        {% comment %} {% include "messages/message.html" %} {% endcomment %}
         <div class="mobile-promotion">
             <span>Grand opening, <strong>up to 15%</strong> off all items. Only <strong>3 days</strong> left</span>
         </div>
@@ -644,7 +643,7 @@
             </div>
         </div>
     </div>
-    {% endif %}
+    {% endif %} {% endcomment %}
     <!--End header-->
 
     <main class="main pages">
@@ -670,7 +669,7 @@
                             <div class="col-lg-4 col-md-8">
                                 <div class="login_wrap widget-taber-content background-white">
                                     <div class="padding_eight_all bg-white">
-                                        <div class="heading_s1">
+                                        <div class="heading_s1 text-center">
                                             <h1 class="mb-5">Login</h1>
                                             <p class="mb-30">Don't have an account? <a href='{% url "signup" %}'>Create here</a></p>
                                         </div>
@@ -693,7 +692,7 @@
                                                     <b class="text-best">5</b>
                                                 </span>
                                             </div> {% endcomment %}
-                                            <div class="login_footer form-group mb-50">
+                                            <div class="login_footer form-group mb-30">
                                                 <div class="chek-form">
                                                     <div class="custome-checkbox">
                                                         <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="" />
@@ -702,7 +701,7 @@
                                                 </div>
                                                 <a class="text-muted fw-bold" href="{% url 'forgot-password' %}">Forgot password?</a>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group text-center">
                                                 <button type="submit" class="btn btn-heading btn-block hover-up" name="login">Log in</button>
                                             </div>
                                         </form>
@@ -713,15 +712,15 @@
                             <div class="col-lg-4 pr-30 d-none d-lg-block">
                                 <div class="card-login mt-40" style="border: 0px;">
                                     
-                                    <a href="{% provider_login_url 'google' %}" class="social-login google-login" style="border: 1px solid black;">
+                                    <a href="{% provider_login_url 'google' %}" class="social-login google-login px-4" style="border: 1px solid black;">
                                         <img src="{% static '/imgs/theme/icons/logo-google.svg' %}" alt="" />
                                         <span>Login with Google</span>
                                     </a>
                                     <a href="#" class="social-login apple-login">
-                                        <img src="{% static '/imgs/theme/logo.svg' %}" alt="" />
-                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR</span>
+                                        {% comment %} <img src="{% static '/imgs/theme/logo.svg' %}" alt="" /> {% endcomment %}
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR</span>
                                     </a><br>
-                                    <a href="#" class="social-login facebook-login">
+                                    <a href="#" class="social-login facebook-login px-3">
                                         <img src="{% static '/imgs/theme/icons/logo-facebook.svg' %}" alt="" />
                                         <span>Login with Facebook</span>
                                     </a>
