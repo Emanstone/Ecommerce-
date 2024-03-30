@@ -673,7 +673,7 @@
                                             {% comment %} <h3 class="mb-5">Welcome, {{request.user.first_name}}</h3><br> {% endcomment %}
                                             {% comment %} <h1 class="mb-5">Create an Account</h1> {% endcomment %}
                                             <h2 class="mb-5">Welcome, <span class="create">signup here to proceed</span></h2><br>
-                                            <p class="mb-30">Already have an account? <a href='{% url "login" %}'>Login</a></p>
+                                            <p class="mb-30">Already have an account? <a href='{% url "login" %}'>&nbsp;Login</a></p>
                                         </div>
                                         <form method="post">
                                             {% csrf_token %}
