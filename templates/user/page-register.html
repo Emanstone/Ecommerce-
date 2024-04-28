@@ -2,8 +2,7 @@
 <html class="no-js" lang="en">
 
 {% load static %}
-{% comment %} SSSSSSSSSSS {% endcomment %}
-{% comment %} {% load socialaccount %} {% endcomment %}
+
 <!-- Mirrored from nest-frontend.netlify.app/page-register by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 18 Jan 2024 19:09:18 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
@@ -230,6 +229,7 @@
                         </div>
                         <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                             <nav>
+                                {% if not request.user.is_authenticated %}
                                 <ul>
                                     <li class="hot-deals"><img src="{% static '/imgs/theme/icons/icon-hot.svg' %}" alt="hot deals" /><a href='shop-grid-right.html'>Deals</a></li>
                                     <li>
@@ -386,6 +386,7 @@
                                             <li><a href='page-terms.html'>Terms of Service</a></li>
                                             <li><a href='page-404.html'>404 Page</a></li>
                                         </ul>
+                                        {% endif %}
                                     </li>
                                     <li>
                                         <a href='page-contact.html'>Contact</a>
@@ -652,8 +653,7 @@
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href='index.html' rel='nofollow'><i class="fi-rs-home mr-5"></i>Home</a>
-                    <span></span> Pages <span></span> My Account
+                    <a href='{% url "home" %}' rel='nofollow'><i class="fi-rs-home mr-5"></i>Home</a>
                 </div>
             </div>
         </div>

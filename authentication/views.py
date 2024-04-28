@@ -28,6 +28,7 @@ User = get_user_model()  # Get the active user model
 
 class Signup(View):
     def get(self, request):
+        # messages.success(request, 'Welcome signup here')
         return render(request, 'user/page-signup.html')
     
 
@@ -141,7 +142,8 @@ class Register(View):
     def get(self, request):
         if not request.user.is_authenticated:
             messages.error(request, 'User not authenticated')
-            return redirect('reverifyit')                
+            return redirect('reverifyit')
+        messages.success(request, 'Create your account')                
         return render(request, 'user/page-register.html')
 
 
@@ -205,11 +207,11 @@ class UserAccount(LoginRequiredMixin, View):
         # Update the logged-in user email
         request.user.is_emailverified = True
         request.user.save()  # Save changes to database
-
-        if request.user.is_vendor:
-            messages.success(request, 'Welcome back Vendor!')
-        else:
-            messages.success(request, 'Welcome back Customer!')
+        messages.success(request, 'Welcome to your user-account')
+        # if request.user.is_vendor:
+        #     messages.success(request, 'Welcome. Vendor!')
+        # else:
+        #     messages.success(request, 'Welcome. Customer!')
         return render(request, 'dash/page-account.html')
 
 
