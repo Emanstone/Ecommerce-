@@ -207,7 +207,7 @@ class UserAccount(LoginRequiredMixin, View):
         # Update the logged-in user email
         request.user.is_emailverified = True
         request.user.save()  # Save changes to database
-        messages.success(request, 'Welcome to your user-account')
+        messages.success(request, 'Welcome to your user-account page')
         # if request.user.is_vendor:
         #     messages.success(request, 'Welcome. Vendor!')
         # else:

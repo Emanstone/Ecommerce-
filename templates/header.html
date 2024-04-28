@@ -332,7 +332,7 @@
                             <nav>
                                 <ul>
                                     <li class="hot-deals"><img src="{% static '/imgs/theme/icons/icon-hot.svg' %}" alt="hot deals" /><a href='shop-grid-right.html'>Deals</a></li>
-                                    <li>
+                                    {% comment %} <li>
                                         <a class='active' href='index.html'>Home <i class="fi-rs-angle-down"></i></a>
                                         <ul class="sub-menu">
                                             <li><a href='index.html'>Home 1</a></li>
@@ -342,10 +342,12 @@
                                             <li><a href='index-5.html'>Home 5</a></li>
                                             <li><a href='index-6.html'>Home 6</a></li>
                                         </ul>
-                                    </li>
-                                    <li>
+                                    </li> {% endcomment %}
+
+                                    {% comment %} <li>
                                         <a href='page-about-2.html'>About</a>
-                                    </li>
+                                    </li> {% endcomment %}
+
                                     <li>
                                         <a href='shop-grid-right.html'>Shop <i class="fi-rs-angle-down"></i></a>
                                         <ul class="sub-menu">
@@ -392,7 +394,8 @@
                                             <li><a href='vendor-guide.html'>Vendor Guide</a></li>
                                         </ul>
                                     </li>
-                                    <li class="position-static">
+
+                                    {% comment %} <li class="position-static">
                                         <a href="#">Mega menu <i class="fi-rs-angle-down"></i></a>
                                         <ul class="mega-menu">
                                             <li class="sub-mega-menu sub-mega-menu-width-22">
@@ -453,7 +456,8 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                    </li>
+                                    </li> {% endcomment %}
+
                                     <li>
                                         <a href='blog-category-grid.html'>Blog <i class="fi-rs-angle-down"></i></a>
                                         <ul class="sub-menu">
