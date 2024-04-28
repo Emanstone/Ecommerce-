@@ -143,7 +143,7 @@ class Register(View):
         if not request.user.is_authenticated:
             messages.error(request, 'User not authenticated')
             return redirect('reverifyit')
-        messages.success(request, 'Create your account')                
+        messages.success(request, 'Create your account here')                
         return render(request, 'user/page-register.html')
 
 
@@ -260,7 +260,7 @@ class VendorApply(View):
 
             # Save the user instance
             user.save()
-            messages.success(request, 'Vendor status, Pending. Login with password')
+            messages.success(request, 'Vendor status, pending. Account created. Login!')
             return redirect('login')
         else:
             messages.warning(request, 'Please fill all required fields')
@@ -334,15 +334,16 @@ class Login(View):
             user = authenticate(request, email=email, password=password)
             if user:
                 login(request, user)
+                return redirect('home')
                 
-                if user.is_vendor:
-                    # messages.success(request, 'Welcome back, Vendor!')
-                    # return render(request, 'index.html')
-                    return redirect('home')
-                else:
-                    # messages.success(request, 'Welcome back, Customer!')
-                    # return render(request, 'index.html')
-                    return redirect('home')
+                # if user.is_vendor:
+                #     # messages.success(request, 'Welcome back, Vendor!')
+                #     # return render(request, 'index.html')
+                #     return redirect('home')
+                # else:
+                #     # messages.success(request, 'Welcome back, Customer!')
+                #     # return render(request, 'index.html')
+                #     return redirect('home')
             else:
                 messages.error(request, 'Invalid input')
                 return redirect('login')
