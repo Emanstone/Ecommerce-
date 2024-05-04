@@ -249,6 +249,7 @@ class VendorApply(View):
             user.location = form.cleaned_data['location']
             user.registration_no = form.cleaned_data['registration_no']
             user.registering_body = form.cleaned_data['registering_body']
+            user.phone_number = form.cleaned_data['phone_number']
             user.business_description = form.cleaned_data['business_description']
             user.website_url = form.cleaned_data['website_url']
 
@@ -276,7 +277,7 @@ class VendorPage(View):
         if not request.user.is_authenticated:
             messages.error(request, 'User not authenticated')
             return redirect('reverifyit')
-        messages.success(request, 'Welcome to Vendor page')
+        messages.success(request, 'Welcome to your Vendor page')
         return render(request, 'dash/vendor-dashboard.html')
     
 

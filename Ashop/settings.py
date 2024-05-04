@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 1st app registration
     'authentication',
     'django.contrib.sites',  # new
     # 3rd party
@@ -47,6 +48,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount', # new
     # social providers
     'allauth.socialaccount.providers.google', # new
+    # 2nd app registration
+    'product',
+    # 3rd app registration
+    'vendor',
 ]
 
 MIDDLEWARE = [

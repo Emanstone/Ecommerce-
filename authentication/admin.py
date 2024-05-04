@@ -5,4 +5,4 @@ from .models import Registration
 
 @admin.register(Registration)
 class Useradmin(admin.ModelAdmin):
-    list_display = ('email', 'username', 'otp', 'is_emailverified', 'first_name', 'last_name', 'is_vendor', 'otp_created_at')
+    list_display = ('email', 'username', 'otp', 'is_emailverified', 'first_name', 'last_name', 'is_vendor', 'vendor_id') # 'otp_created_at' optional

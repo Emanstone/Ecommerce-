@@ -9,6 +9,7 @@ class Registration(AbstractUser):
     otp = models.CharField(max_length=6)
     otp_created_at = models.DateTimeField(null=True, blank=True)
     email = models.EmailField(max_length=254, blank=False, unique=True)
+    vendor_id = models.BooleanField(default=False)
 
     is_vendor = models.BooleanField(default=False)
     vendor_application_status = models.CharField(max_length=20, choices=[('pending', 'Pending'), 
@@ -20,6 +21,7 @@ class Registration(AbstractUser):
     location = models.CharField(max_length=100)
     registration_no = models.CharField(max_length=50)
     registering_body = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=11, default=0)
     business_description = models.TextField()
     website_url = models.URLField(blank=True)  # website is optional
 

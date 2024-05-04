@@ -4,7 +4,7 @@ from .models import Registration
 class VendorApplyForm(forms.ModelForm):
     class Meta:
         model = Registration
-        fields = ['business_name', 'registration_no', 'registering_body', 'location', 'business_description', 'website_url']
+        fields = ['business_name', 'registration_no', 'registering_body', 'location', 'phone_number', 'business_description', 'website_url']
 
 
     def __init__(self, *args, **kwargs):
@@ -13,6 +13,7 @@ class VendorApplyForm(forms.ModelForm):
         # self.fields['registration_no'].widget.attrs['placeholder'] = 'Enter registration number'
         # self.fields['registering_body'].widget.attrs['placeholder'] = 'Enter registering body'
         # self.fields['location'].widget.attrs['placeholder'] = 'Enter location'
+        # self.fields['phone_number'].widget.attrs['placeholder'] = 'Enter Phone Number'
         # self.fields['business_description'].widget.attrs['placeholder'] = 'Enter business description'
         self.fields['website_url'].widget.attrs['placeholder'] = 'Enter website URL (optional)'
 
