@@ -21,6 +21,8 @@ from django.urls import reverse
 
 from django.contrib.auth.backends import ModelBackend
 
+from product.models import Category, Product, Productimage
+
 
 # Create your views here.
 
@@ -290,6 +292,10 @@ class VendorPage(View):
 
 class Home(View):
     def get(self, request):
+        categories = Category.objects.all()
+        # products = Product.objects.all()
+        products = Product.objects.filter(featured=True, product_status='approved')
+        product_images = Productimage.objects.all()
         if request.user.is_authenticated:
             if request.user.is_vendor:
                 messages.success(request, 'Welcome back Vendor!')
@@ -298,7 +304,7 @@ class Home(View):
         else:
             messages.success(request, 'Welcome! Login to start')
         
-        return render(request, 'index.html')
+        return render(request, 'index.html', {'categories': categories, 'products': products, 'product_images': product_images})
 
 
 

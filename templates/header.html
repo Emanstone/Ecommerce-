@@ -102,7 +102,8 @@
                 </div>
             </div>
         </div>
-        {% if request.user.is_authenticated %}
+        
+        {% comment %} {% if request.user.is_authenticated %} {% endcomment %}
 
         <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
             <div class="container">
@@ -217,7 +218,7 @@
                                     {% if request.user.is_authenticated %}
                                     <a href='page-account.html'><span class="lable ml-0">{{request.user.username|slice:":7"}}</span></a>
                                     {% else %}
-                                    <a href='page-account.html'><span class="lable ml-0">Account</span></a>
+                                    <a href='{% url "login" %}'><span class="lable ml-0">Account</span></a>
                                     {% endif %}
                                     
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
@@ -254,7 +255,7 @@
                 </div>
             </div>
         </div>
-        {% endif %}
+        {% comment %} {% endif %} {% endcomment %}
         <div class="header-bottom header-bottom-bg-color sticky-bar">
             <div class="container">
                 <div class="header-wrap header-space-between position-relative">

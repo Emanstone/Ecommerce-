@@ -54,16 +54,15 @@ class Product(models.Model):
     user = models.ForeignKey(Registration, on_delete=models.CASCADE, related_name='vendors', limit_choices_to={'is_vendor': True, 'vendor_application_status': 'approved'})
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, null=True, related_name='product')
     image = models.ImageField(_(""), upload_to="product_image")
-    description = models.TextField(_(""))
+    description = models.TextField(_("Description"))
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, related_name='product')
-    product_details = models.TextField(_(""))
+    product_details = models.TextField(_("Product Details"))
     price = models.DecimalField(max_digits=20, decimal_places=2, default=00)
     old_price = models.DecimalField(max_digits=60, decimal_places=2)
-    specification = models.TextField(_(""))
-    # product_status = models.CharField(choices=[('status', 'Status')], max_length=50, default='in review')
+    specification = models.TextField(_("Product Specification"))
     product_status = models.CharField(choices=status, max_length=50, default='in review')
     in_stock = models.BooleanField(default=False)
-    features = models.BooleanField(default=False)
+    featured = models.BooleanField(default=False)
     digital = models.BooleanField(default=False)
     my_stock = models.CharField(max_length=50)
     date = models.DateTimeField(auto_now_add=True)
@@ -78,6 +77,7 @@ class Product(models.Model):
 
     class Meta:
         verbose_name_plural = 'products'
+        ordering = ['-last_updated']
 
     def __str__(self):
         return self.product_name
@@ -111,7 +111,7 @@ class Productimage(models.Model):
         verbose_name_plural = 'Products images'
 
     def __str__(self):
-        return self.product_name.product_names    
+        return self.product_name.product_name    
 
 
 

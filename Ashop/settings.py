@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -140,6 +141,14 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+
+# Here's my Jazzmin settings
+
+JAZZMIN_SETTINGS = {
+    "site_logo": "img/Emma.png",
+}
+
+LOGIN_REDIRECT_URL = '/admin/'
 
 MESSAGE_TAGS={
     messages.SUCCESS:'alert-success',     # Green
