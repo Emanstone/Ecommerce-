@@ -51,7 +51,7 @@
             <div class="container wow animate__animated animate__fadeIn">
                 <div class="section-title">
                     <div class="title">
-                        <h3>Categories</h3>
+                        <h3>Categories:</h3>&nbsp;&nbsp;
                         <ul class="list-inline nav nav-tabs links">
 
                             {% for category in categories %}
@@ -71,7 +71,7 @@
                             <figure class="img-hover-scale overflow-hidden">
                                 <a href='#'><img src="{{category.image.url}}" alt="" height="80" /></a>
                             </figure>
-                            <h6><a href='shop-grid-right.html'>{{category.category_name}}</a></h6>
+                            <h6><a href='#'>{{category.category_name}}</a></h6>
                             <span>{{ category.product.count }} items</span>
                         </div>
                         {% endfor %}
@@ -202,16 +202,28 @@
                     <h3>Featured Products</h3>
                     <ul class="nav nav-tabs links" id="myTab-2" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="nav-tab-one-1" data-bs-toggle="tab" data-bs-target="#tab-one-1" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Featured</button>
-                        </li>
+                            <a href="#!">
+                            <button class="nav-link active fw-bold" id="nav-tab-one-1" data-bs-toggle="tab" data-bs-target="#tab-one-1" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Featured</button>
+                            </a>
+                            {% comment %} <button class="nav-link active" id="nav-tab-one-1" data-bs-toggle="tab" data-bs-target="#tab-one-1" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Featured</button> {% endcomment %}
+                        </li>&nbsp;&nbsp;&nbsp;
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="nav-tab-two-1" data-bs-toggle="tab" data-bs-target="#tab-two-1" type="button" role="tab" aria-controls="tab-two" aria-selected="false">All products</button>
-                        </li>
+                            <a href="#!">
+                            <button class="nav-link active fw-bold" id="nav-tab-one-1" data-bs-toggle="tab" data-bs-target="#tab-one-1" type="button" role="tab" aria-controls="tab-one" aria-selected="true">All products</button>
+                            </a>
+                            {% comment %} <button class="nav-link" id="nav-tab-two-1" data-bs-toggle="tab" data-bs-target="#tab-two-1" type="button" role="tab" aria-controls="tab-two" aria-selected="false">All products</button> {% endcomment %}
+                        </li>&nbsp;&nbsp;&nbsp;
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="nav-tab-two-1" data-bs-toggle="tab" data-bs-target="#tab-two-1" type="button" role="tab" aria-controls="tab-two" aria-selected="false">Popular</button>
-                        </li>
+                            <a href="#!">
+                            <button class="nav-link active fw-bold" id="nav-tab-one-1" data-bs-toggle="tab" data-bs-target="#tab-one-1" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Popular</button>
+                            </a>
+                            {% comment %} <button class="nav-link" id="nav-tab-two-1" data-bs-toggle="tab" data-bs-target="#tab-two-1" type="button" role="tab" aria-controls="tab-two" aria-selected="false">Popular</button> {% endcomment %}
+                        </li>&nbsp;&nbsp;&nbsp;
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="nav-tab-three-1" data-bs-toggle="tab" data-bs-target="#tab-three-1" type="button" role="tab" aria-controls="tab-three" aria-selected="false">Newly added</button>
+                            <a href="#!">
+                            <button class="nav-link active fw-bold" id="nav-tab-one-1" data-bs-toggle="tab" data-bs-target="#tab-one-1" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Newly added</button>
+                            </a>
+                            {% comment %} <button class="nav-link" id="nav-tab-three-1" data-bs-toggle="tab" data-bs-target="#tab-three-1" type="button" role="tab" aria-controls="tab-three" aria-selected="false">Newly added</button> {% endcomment %}
                         </li>
                     </ul>
 
@@ -249,9 +261,9 @@
                                 <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
                                     <div class="product-img-action-wrap"><br>
                                         <div class="product-img product-img-zoom">
-                                            <a href='shop-product-right.html'>
+                                            <a href='#!'>
                                                 <img class="default-img" src="{{ product.image.url }}" alt="" width="200" height="220" />
-                                                <img class="hover-img" src="{{ product.image.url }}" alt="" width="220" height="250" />
+                                                {% comment %} <img class="hover-img" src="{{ product.image.url }}" alt="" width="220" height="250" /> {% endcomment %}
                                             </a>
                                         </div>
                                         <div class="product-action-1">
@@ -267,9 +279,9 @@
                                     </div>
                                     <div class="product-content-wrap">
                                         <div class="product-category">
-                                            <a href='shop-grid-right.html'>{{product.category}}</a>
+                                            <a href='#!'>{{product.category}}</a>
                                         </div>
-                                        <h2><a href='shop-product-right.html'>{{product.product_name}}</a></h2>
+                                        <h2><a href='#!'>{{product.product_name}}</a></h2>
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
                                                 <div class="product-rating" style="width: 90%"></div>
