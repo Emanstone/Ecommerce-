@@ -71,8 +71,13 @@
                             <figure class="img-hover-scale overflow-hidden">
                                 <a href='#'><img src="{{category.image.url}}" alt="" height="80" /></a>
                             </figure>
-                            <h6><a href='#'>{{category.category_name}}</a></h6>
+                            {% comment %} <h6><a href='#'>{{category.category_name}}</a></h6> {% endcomment %}
+                            <h6><a href='#'><span title="{{ category.category_name }}">{{ category.category_name|slice:":11" }}</span></a></h6>
+                            {% if category.product.count == 1 %}
+                            <span>{{ category.product.count }} item</span>
+                            {% else %}
                             <span>{{ category.product.count }} items</span>
+                            {% endif %}
                         </div>
                         {% endfor %}
 
