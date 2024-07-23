@@ -45,14 +45,18 @@
                                 {% endif %}
                                 
                                 {% if request.user.is_authenticated %}
-                                <li><a href='{% url "account" %}'>My Account</a></li>
-                                <li><a href='#'>Wishlist</a></li>
-                                <li><a href="#">Order Tracking</a></li>
-                                <!-- <li><a href='{% url "logout" %}' id="linksubmit"><span id="logout">Logout</span></a></li> -->
-                                <a href='{% url "logout" %}' id="linksubmit">
-                                    <span id="logout">Logout</span>
+                                <!-- <li><a href='{% url "account" %}'>My Account</a></li>  No4-->
+                                <li><a href='{% url "account" %}' id="alinksubmit">
+                                    <span id="account" style="font-weight: bold;">My Account</span>
                                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                                </a>
+                                </a></li>
+                                <!-- <li><a href='#'>Wishlist</a></li> -->
+                                <li><a href="#"><span style="font-weight: bold;">Order Tracking</span></a></li>
+                                <!-- <li><a href='{% url "logout" %}' id="linksubmit"><span id="logout">Logout</span></a></li> -->
+                                <li><a href='{% url "logout" %}' id="linksubmit">
+                                    <span id="logout" style="font-weight: bold;">Logout</span>
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                </a></li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -107,7 +111,7 @@
             </div>
         </div>
         
-        {% comment %} {% if request.user.is_authenticated %} {% endcomment %}
+        <!-- {% if request.user.is_authenticated %}-->
 
         <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
             <div class="container">
@@ -120,7 +124,7 @@
                             <form action="#">
                                 <select class="select-active">
                                     <option>All Categories</option>
-                                    <option>Milks and Dairies</option>
+                                    <!-- <option>Milks and Dairies</option>
                                     <option>Wines & Alcohol</option>
                                     <option>Clothing & Beauty</option>
                                     <option>Pet Foods & Toy</option>
@@ -129,7 +133,7 @@
                                     <option>Vegetables</option>
                                     <option>Fresh Seafood</option>
                                     <option>Noodles & Rice</option>
-                                    <option>Ice cream</option>
+                                    <option>Ice cream</option> -->
                                 </select>
                                 <input type="text" placeholder="Search for items..." />
                             </form>
@@ -157,25 +161,25 @@
                                     </form>
                                 </div>
                                 <div class="header-action-icon-2">
-                                    <a href='shop-compare.html'>
+                                    <a href='#!'>
                                         <img class="svgInject" alt="Nest" src="{% static '/imgs/theme/icons/icon-compare.svg' %}" />
                                         <span class="pro-count blue">3</span>
                                     </a>
-                                    <a href='shop-compare.html'><span class="lable ml-0">Compare</span></a>
+                                    <a href='#!'><span class="lable ml-0">Compare</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
                                     <a href='shop-wishlist.html'>
                                         <img class="svgInject" alt="Nest" src="{% static '/imgs/theme/icons/icon-heart.svg' %}" /> 
                                         <span class="pro-count blue">6</span>
                                     </a>
-                                    <a href='shop-wishlist.html'><span class="lable">Wishlist</span></a>
+                                    <a href='#!'><span class="lable">Wishlist</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
                                     <a class='mini-cart-icon' href='shop-cart.html'>
                                         <img alt="Nest" src="{% static '/imgs/theme/icons/icon-cart.svg' %}" />
                                         <span class="pro-count blue">2</span>
                                     </a>
-                                    <a href='shop-cart.html'><span class="lable">Cart</span></a>
+                                    <a href='#!'><span class="lable">Cart</span></a>
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                         <ul>
                                             <li>
@@ -215,32 +219,32 @@
                                     </div>
                                 </div>
                                 <div class="header-action-icon-2">
-                                    <a href='page-account.html'>
+                                    <a href='#!'>
                                         <img class="svgInject" alt="Nest" src="{% static '/imgs/theme/icons/icon-user.svg' %}" />
                                     </a>
-                                    {% comment %} <a href='page-account.html'><span class="lable ml-0">Account</span></a> {% endcomment %}
+                                    <!-- <a href='page-account.html'><span class="lable ml-0">Account</span></a> -->
                                     {% if request.user.is_authenticated %}
-                                    <a href='page-account.html'><span class="lable ml-0">{{request.user.username|slice:":7"}}</span></a>
+                                    <a href='#!'><span class="lable ml-0">{{request.user.username|slice:":7"}}</span></a>
                                     {% else %}
                                     <a href='{% url "login" %}'><span class="lable ml-0">Account</span></a>
                                     {% endif %}
                                     
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                         <ul>
-                                            <li>
+                                            <!-- <li>
                                                 <a href='{% url "account" %}'><i class="fi fi-rs-user mr-10"></i>My Account</a>
-                                            </li>
-                                            <li>
+                                            </li> -->
+                                            <!-- <li>
                                                 <a href='page-account.html'><i class="fi fi-rs-location-alt mr-10"></i>Order Tracking</a>
-                                            </li>
+                                            </li> -->
                                             <li>
-                                                <a href='page-account.html'><i class="fi fi-rs-label mr-10"></i>My Voucher</a>
+                                                <a href='#!'><i class="fi fi-rs-label mr-10"></i>My Voucher</a>
                                             </li>
-                                            <li>
+                                            <!-- <li>
                                                 <a href='shop-wishlist.html'><i class="fi fi-rs-heart mr-10"></i>My Wishlist</a>
-                                            </li>
+                                            </li> -->
                                             <li>
-                                                <a href='page-account.html'><i class="fi fi-rs-settings-sliders mr-10"></i>Setting</a>
+                                                <a href='#!'><i class="fi fi-rs-settings-sliders mr-10"></i>Setting</a>
                                             </li>
                                             <li>
                                                 <!-- <a href='{% url "logout" %}' id="linksubmit"><span id="logout">Logout</span></a> -->
@@ -260,7 +264,7 @@
                 </div>
             </div>
         </div>
-        {% comment %} {% endif %} {% endcomment %}
+        <!-- {% endif %} -->
         <div class="header-bottom header-bottom-bg-color sticky-bar">
             <div class="container">
                 <div class="header-wrap header-space-between position-relative">
@@ -279,11 +283,11 @@
                                         {% for category in categories %}
                                         <li>
                                             <a href='#!'> <img src="{% static '/imgs/theme/icons/category-1.svg' %}" alt="" />{{ category.category_name }}</a>
-                                            {% comment %} <a href='shop-grid-right.html'> <img src="{% static '/imgs/theme/icons/category-1.svg' %}" alt="" />Milks and Dairies</a> {% endcomment %}
+                                            <!-- <a href='shop-grid-right.html'> <img src="{% static '/imgs/theme/icons/category-1.svg' %}" alt="" />Milks and Dairies</a> -->
                                         </li>
                                         {% endfor %}
                                         
-                                        {% comment %} <li>
+                                        <!-- <li>
                                             <a href='shop-grid-right.html'> <img src="{% static '/imgs/theme/icons/category-2.svg' %}" alt="" />Clothing & beauty</a>
                                         </li>
                                         <li>
@@ -294,20 +298,20 @@
                                         </li>
                                         <li>
                                             <a href='shop-grid-right.html'> <img src="{% static '/imgs/theme/icons/category-5.svg' %}" alt="" />Fresh Fruit</a>
-                                        </li> {% endcomment %}
-                                    </ul>
+                                        </li> 
+                                    </ul> -->
 
                                     <ul class="end">
 
                                         {% for category in categories %}
                                         <li>
                                             <a href='#!'> <img src="{% static '/imgs/theme/icons/category-1.svg' %}" alt="" />{{ category.category_name }}</a>
-                                            {% comment %} <a href='shop-grid-right.html'> <img src="{% static '/imgs/theme/icons/category-1.svg' %}" alt="" />Milks and Dairies</a> {% endcomment %}
+                                            <!-- <a href='shop-grid-right.html'> <img src="{% static '/imgs/theme/icons/category-1.svg' %}" alt="" />Milks and Dairies</a> -->
                                         </li>
                                         
                                         {% endfor %}
 
-                                        {% comment %} <li>
+                                        <!-- <li>
                                             <a href='shop-grid-right.html'> <img src="{% static '/imgs/theme/icons/category-6.svg' %}" alt="" />Wines & Drinks</a>
                                         </li>
                                         <li>
@@ -321,7 +325,7 @@
                                         </li>
                                         <li>
                                             <a href='shop-grid-right.html'> <img src="{% static '/imgs/theme/icons/category-10.svg' %}" alt="" />Bread and Juice</a>
-                                        </li> {% endcomment %}
+                                        </li> -->
                                     </ul>
 
                                 </div>
@@ -352,8 +356,8 @@
                             {% if request.user.is_authenticated %}
                             <nav>
                                 <ul>
-                                    <li class="hot-deals"><img src="{% static '/imgs/theme/icons/icon-hot.svg' %}" alt="hot deals" /><a href='shop-grid-right.html'>Deals</a></li>
-                                    {% comment %} <li>
+                                    <li class="hot-deals"><img src="{% static '/imgs/theme/icons/icon-hot.svg' %}" alt="hot deals" /><a href='#!'>Deals</a></li>
+                                    <!-- <li>
                                         <a class='active' href='index.html'>Home <i class="fi-rs-angle-down"></i></a>
                                         <ul class="sub-menu">
                                             <li><a href='index.html'>Home 1</a></li>
@@ -363,15 +367,15 @@
                                             <li><a href='index-5.html'>Home 5</a></li>
                                             <li><a href='index-6.html'>Home 6</a></li>
                                         </ul>
-                                    </li> {% endcomment %}
+                                    </li> {-->
 
-                                    {% comment %} <li>
+                                    <!-- <li>
                                         <a href='page-about-2.html'>About</a>
-                                    </li> {% endcomment %}
+                                    </li> -->
 
                                     <li>
-                                        <a href='shop-grid-right.html'>Shop <i class="fi-rs-angle-down"></i></a>
-                                        <ul class="sub-menu">
+                                        <a href='#!'>Shop <i class="fi-rs-angle-down"></i></a>
+                                        <!-- <ul class="sub-menu">
                                             <li><a href='shop-grid-right.html'>Shop Grid – Right Sidebar</a></li>
                                             <li><a href='shop-grid-left.html'>Shop Grid – Left Sidebar</a></li>
                                             <li><a href='shop-list-right.html'>Shop List – Right Sidebar</a></li>
@@ -403,20 +407,21 @@
                                                 </ul>
                                             </li>
                                         </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">Vendors <i class="fi-rs-angle-down"></i></a>
-                                        <ul class="sub-menu">
+                                    </li> -->
+
+                                    <li> 
+                                        <a href="#!">Vendors <i class="fi-rs-angle-down"></i></a>
+                                        <!-- <ul class="sub-menu">
                                             <li><a href='vendors-grid.html'>Vendors Grid</a></li>
                                             <li><a href='vendors-list.html'>Vendors List</a></li>
                                             <li><a href='vendor-details-1.html'>Vendor Details 01</a></li>
                                             <li><a href='vendor-details-2.html'>Vendor Details 02</a></li>
                                             <li><a href='vendor-dashboard.html'>Vendor Dashboard</a></li>
                                             <li><a href='vendor-guide.html'>Vendor Guide</a></li>
-                                        </ul>
+                                        </ul> -->
                                     </li>
 
-                                    {% comment %} <li class="position-static">
+                                    <!-- {% comment %} <li class="position-static">
                                         <a href="#">Mega menu <i class="fi-rs-angle-down"></i></a>
                                         <ul class="mega-menu">
                                             <li class="sub-mega-menu sub-mega-menu-width-22">
@@ -495,8 +500,9 @@
                                                 </ul>
                                             </li>
                                         </ul>
-                                    </li>
-                                    {% comment %} <li>
+                                    </li> -->
+
+                                    <!-- <li>
                                         <a href="#">Pages <i class="fi-rs-angle-down"></i></a>
                                         <ul class="sub-menu">
                                             <li><a href='page-about-2.html'>About Us</a></li>
@@ -511,9 +517,10 @@
                                             <li><a href='page-terms.html'>Terms of Service</a></li>
                                             <li><a href='page-404.html'>404 Page</a></li>
                                         </ul>
-                                    </li> {% endcomment %}
+                                    </li> -->
+
                                     <li>
-                                        <a href='page-contact.html'>Contact</a>
+                                        <a href='#!'>Contact</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -779,7 +786,7 @@
         {% endblock content %}
 
         
-    <!-- Bootstrap Loader -->    
+    <!-- Bootstrap Loader  No1-->    
     <div id="loader" style="display: none;">
         <div class="d-flex justify-content-center align-items-center"
             style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999;">
@@ -812,6 +819,7 @@
         </div>
     </div> -->
 
+    <!-- Ajax JQuery CDN  No2-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Vendor JS-->
     <script src="{% static '/js/vendor/modernizr-3.6.0.min.js' %}"></script>
@@ -836,9 +844,11 @@
     <!-- Template  JS -->
     <script src="{% static '/js/main2cc5.js' %}"></script>
     <script src="{% static '/js/shop2cc5.js' %}"></script>
+    <!-- Ajax  JS  No3-->
     <script src="{% static '/js/customize/signup.js' %}"></script>
     <script src="{% static '/js/customize/logout.js' %}"></script>
     <script src="{% static '/js/customize/home.js' %}"></script>
+    <script src="{% static '/js/customize/account.js' %}"></script>
 </body>
 
 

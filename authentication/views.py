@@ -228,11 +228,11 @@ class UserAccount(LoginRequiredMixin, View):
         # Update the logged-in user email
         request.user.is_emailverified = True
         request.user.save()  # Save changes to database
-        messages.success(request, 'Welcome to your user-account page')
-        # if request.user.is_vendor:
-        #     messages.success(request, 'Welcome. Vendor!')
-        # else:
-        #     messages.success(request, 'Welcome. Customer!')
+        # messages.success(request, 'Welcome to your user-account page')
+        # Return JSON for AJAX request
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({"account": "Redirecting to your Account page . . . ."}, status=200)
+        
         return render(request, 'dash/page-account.html')
 
 
@@ -325,7 +325,7 @@ class Home(View):
                     return JsonResponse({"vendor": "Welcome back Vendor!"}, status=200)
             else:
                 # messages.success(request, 'Welcome back Customer!')
-                
+
                 # Return JSON for AJAX request
                 if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                     return JsonResponse({"customer": "Welcome back Customer!"}, status=200)
