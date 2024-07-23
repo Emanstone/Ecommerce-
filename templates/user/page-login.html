@@ -16,12 +16,12 @@
             <div class="container">
                 <div class="breadcrumb">
                     <a href='{% url "home" %}' rel='nofollow'><i class="fi-rs-home mr-5"></i>Home</a>
-                    {% comment %} <span></span> Pages <span></span> My Account {% endcomment %}
+                    <!-- <span></span> Pages <span></span> My Account -->
                 </div>
             </div>
         </div>
         
-        <div class="page-content pt-30 pb-40">
+        <div class="page-content pt-30 pb-40" id="maincontent">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 ms-3">
@@ -38,17 +38,23 @@
                                             <h1 class="mb-5">Login</h1>
                                             <p class="mb-30">Don't have an account? <a href='{% url "signup" %}'>&nbsp;Create here</a></p>
                                         </div>
-                                        <form method="post">
+
+                                        <!-- Bootstrap messaging -->
+                                        <div class="alert w-100 mb-2" role="alert" id="message" style="display: none;">   
+                                        </div>
+
+                                        <!-- Signup form -->
+                                        <form method="post" id="form-l">
                                             {% csrf_token %}
                                             <div class="form-group">
-                                                <input type="text" required="" name="email" placeholder="Email *" style="border: 1px solid black;" />
+                                                <input type="text" name="email" placeholder="Email *" style="border: 1px solid black;" />
                                             </div>
                                             <div class="form-group">
-                                                <input required="" type="password" name="password" placeholder="Your password *" style="border: 1px solid black;" />
+                                                <input type="password" name="password" placeholder="Your password *" style="border: 1px solid black;" />
                                             </div>
-                                            {% comment %} <div class="login_footer form-group">
+                                            <!-- <div class="login_footer form-group">
                                                 <div class="chek-form">
-                                                    <input type="text" required="" name="email" placeholder="Security code *" />
+                                                    <input type="text" name="email" placeholder="Security code *" />
                                                 </div>
                                                 <span class="security-code">
                                                     <b class="text-new">8</b>
@@ -56,7 +62,7 @@
                                                     <b class="text-sale">7</b>
                                                     <b class="text-best">5</b>
                                                 </span>
-                                            </div> {% endcomment %}
+                                            </div> -->
                                             <div class="login_footer form-group mb-30">
                                                 <div class="chek-form">
                                                     <div class="custome-checkbox">
@@ -67,7 +73,10 @@
                                                 <a class="text-muted fw-bold" href="{% url 'forgot-password' %}">Forgot password?</a>
                                             </div>
                                             <div class="form-group text-center">
-                                                <button type="submit" class="btn btn-heading btn-block hover-up" name="login">Log in</button>
+                                                <span class="spinner-border text-danger" style="display: none;"  id="spin"></span>
+                                                <button type="submit" class="btn btn-heading btn-block hover-up" 
+                                                    name="login" id="btnsubmit"><span id="login">Login</span>
+                                                </button>
                                             </div>
                                         </form>
                                     </div>

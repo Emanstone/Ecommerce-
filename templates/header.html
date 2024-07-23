@@ -24,10 +24,10 @@
 </head>
 
 <body>
-    {% include "messages/message.html" %}
+    {% comment %} {% include "messages/message.html" %} {% endcomment %}
     
     <header class="header-area header-style-1 header-height-2">
-        {% comment %} {% include "messages/message.html" %} {% endcomment %}
+        {% include "messages/message.html" %}
         <div class="mobile-promotion">
             <span>Grand opening, <strong>up to 15%</strong> off all items. Only <strong>3 days</strong> left</span>
         </div>
@@ -48,7 +48,11 @@
                                 <li><a href='{% url "account" %}'>My Account</a></li>
                                 <li><a href='#'>Wishlist</a></li>
                                 <li><a href="#">Order Tracking</a></li>
-                                <li><a href='{% url "logout" %}'>Logout</a></li>
+                                <!-- <li><a href='{% url "logout" %}' id="linksubmit"><span id="logout">Logout</span></a></li> -->
+                                <a href='{% url "logout" %}' id="linksubmit">
+                                    <span id="logout">Logout</span>
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                </a>
                                 {% endif %}
                             </ul>
                         </div>
@@ -239,7 +243,8 @@
                                                 <a href='page-account.html'><i class="fi fi-rs-settings-sliders mr-10"></i>Setting</a>
                                             </li>
                                             <li>
-                                                <a href='{% url "logout" %}'><i class="fi fi-rs-sign-out mr-10"></i>Sign out</a>
+                                                <!-- <a href='{% url "logout" %}' id="linksubmit"><span id="logout">Logout</span></a> -->
+                                                <!-- <a href='{% url "logout" %}'><i class="fi fi-rs-sign-out mr-10"></i>Sign out</a> -->
                                             </li>
                                             {% if not request.user.is_authenticated %}
                                             <li>
@@ -773,10 +778,31 @@
 
         {% endblock content %}
 
+        
+    <!-- Bootstrap Loader -->    
+    <div id="loader" style="display: none;">
+        <div class="d-flex justify-content-center align-items-center"
+            style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999;">
+            <div class="spinner-border text-primary role=status">
+            </div>
+        </div>
+    </div>
+
+    <!-- <script>
+        $('#loader').fadeIn('show', function () {
+
+            setInterval(function () {
+                $('#loader').hide()
+
+            }, 2000)
+
+        })
+    </script> -->
+
 
 
     <!-- Preloader Start -->
-    <div id="preloader-active">
+    <!-- <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
                 <div class="text-center">
@@ -784,8 +810,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Vendor JS-->
     <script src="{% static '/js/vendor/modernizr-3.6.0.min.js' %}"></script>
     <script src="{% static '/js/vendor/jquery-3.6.0.min.js' %}"></script>
@@ -809,6 +836,9 @@
     <!-- Template  JS -->
     <script src="{% static '/js/main2cc5.js' %}"></script>
     <script src="{% static '/js/shop2cc5.js' %}"></script>
+    <script src="{% static '/js/customize/signup.js' %}"></script>
+    <script src="{% static '/js/customize/logout.js' %}"></script>
+    <script src="{% static '/js/customize/home.js' %}"></script>
 </body>
 
 

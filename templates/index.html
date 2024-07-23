@@ -8,7 +8,9 @@
     <!-- Modal -->
    
     <!--End header-->
-    <main class="main">
+    <main class="main" id="maincontent">
+        <div class="alert w-40 mb-2 mt-2" role="alert" id="message" style="display: none;">   
+        </div>
         {% comment %} <section class="home-slider position-relative mb-30">
             <div class="container">
                 <div class="home-slide-cover mt-30">
@@ -48,10 +50,13 @@
 
 
         <section class="popular-categories section-padding">
+            <!-- Bootstrap messaging -->
+            {% comment %} <div class="alert w-100 mb-2" role="alert" id="message" style="display: none;">   
+            </div> {% endcomment %}
             <div class="container wow animate__animated animate__fadeIn">
                 <div class="section-title">
                     <div class="title">
-                        <h3>Categories:</h3>&nbsp;&nbsp;
+                        <h3>Categories</h3>&nbsp;&nbsp;
                         {% comment %} <ul class="list-inline nav nav-tabs links">
 
                             {% for category in categories %}

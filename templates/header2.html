@@ -23,10 +23,20 @@
 
 <body>
     {% block content %}
+    
     {% endblock content %}
 
+    <!-- Bootstrap Loader -->
+    <div id="loader2" style="display: none;">
+        <div class="d-flex justify-content-center align-items-center"
+            style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999;">
+            <div class="spinner-border text-primary role=status">
+            </div>
+        </div>
+    </div>
+
     <!-- Preloader Start -->
-    <div id="preloader-active">
+    <!-- <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
                 <div class="text-center">
@@ -34,7 +44,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Vendor JS-->
     <script src="{% static '/js/vendor/modernizr-3.6.0.min.js' %}"></script>
     <script src="{% static '/js/vendor/jquery-3.6.0.min.js' %}"></script>
@@ -58,5 +70,7 @@
     <!-- Template  JS -->
     <script src="{% static '/js/main2cc5.js' %}"></script>
     <script src="{% static '/js/shop2cc5.js' %}"></script>
+    <script src="{% static '/js/customize/signup.js' %}"></script>
+    <script src="{% static '/js/customize/login.js' %}"></script>
 </body>
 </html>

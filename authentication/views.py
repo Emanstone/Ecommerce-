@@ -10,6 +10,7 @@ from django.contrib import messages
 from .forms import VendorApplyForm
 from django.utils import timezone
 from datetime import timedelta
+from django.http import JsonResponse
 
 from django.utils.http import urlsafe_base64_encode
 from django.utils.http import urlsafe_base64_decode
@@ -39,12 +40,28 @@ class Signup(View):
         username = request.POST['username']
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
+
+        # Form Input Validation[Ajax]
+        if not email:
+            return JsonResponse({"email":"Email cannot be blank"},status=400 )
+        if not username:
+            return JsonResponse({"username":"Username cannot be blank"},status=400 )
         
+        if not first_name:
+            return JsonResponse({"first_name":"first name cannot be blank"},status=400 )
+        
+        if not last_name:
+            return JsonResponse({"lastname":"last name cannot be blank"},status=400 )
+        
+
+        # User Validation
         if User.objects.filter(email=email).exists():
-            messages.error(request, 'Email already exists')
+            return JsonResponse({"email_exist":"Email already exists"},status=400 )
+            # messages.error(request, 'Email already exists')
 
         if User.objects.filter(username=username).exists():
-            messages.error(request, 'Username already exist')
+            return JsonResponse({"Username_exist":"Username already exists"},status=400 )
+            # messages.error(request, 'Username already exist')
 
         user = User.objects.create_user(email=email, username=username, first_name=first_name, last_name=last_name)
 
@@ -60,10 +77,12 @@ class Signup(View):
         send_now = send_mail(subject, body, from_email, [to_email])
         
         if send_now:
-            messages.success(request, 'Success!  OTP sent')
-            return redirect('verifyit')
-        messages.error(request, 'Sign up')
-        return render(request, 'user/signup.html')
+            return JsonResponse({"verify":"account created redrecting..."},status=200 )
+            # messages.success(request, 'Success!  OTP sent')
+            # return redirect('verifyit')
+        return JsonResponse({"signup":"account not created"},status=400 )    
+        # messages.error(request, 'Sign up')
+        # return render(request, 'user/signup.html')
 
 
 
@@ -296,11 +315,20 @@ class Home(View):
         # products = Product.objects.all()
         products = Product.objects.filter(featured=True, product_status='approved')
         product_images = Productimage.objects.all()
+
         if request.user.is_authenticated:
             if request.user.is_vendor:
-                messages.success(request, 'Welcome back Vendor!')
+                # messages.success(request, 'Welcome back Vendor!')
+
+                # Return JSON for AJAX request
+                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                    return JsonResponse({"vendor": "Welcome back Vendor!"}, status=200)
             else:
-                messages.success(request, 'Welcome back Customer!')
+                # messages.success(request, 'Welcome back Customer!')
+                
+                # Return JSON for AJAX request
+                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                    return JsonResponse({"customer": "Welcome back Customer!"}, status=200)
         else:
             messages.success(request, 'Welcome! Login to start')
         
@@ -318,46 +346,36 @@ class Login(View):
         email = request.POST.get('email')
         password = request.POST.get('password')
 
+        # Form Input Validation[Ajax]
+        if not email:
+            return JsonResponse({"email":"Email cannot be blank"},status=400 )
+        if not password:
+            return JsonResponse({"password":"password cannot be blank"},status=400 )
+
         try:
             # Retrieve the user by email
             user = User.objects.get(email=email)
 
-            # Check if the user is a superuser
-            if user.is_superuser and user.check_password(password):
-                # Specify the authentication backend
-                backend = ModelBackend()
-                user.backend = f'{backend.__module__}.{backend.__class__.__name__}'
-                # Log in the superuser if password match
-                login(request, user)
-                # messages.success(request, 'Welcome back, Admin!')
-                return redirect('home')
-
-            # For regular users, check email verification
+            # Check if the user is email verified
             if not user.is_emailverified:
-                messages.warning(request, 'Verify your email')
-                return redirect('reverifyit')
+                # return redirect('reverifyit')
+                return JsonResponse({"reverify":"Email not yet verified.\u00A0\u00A0Redirecting. . . ."},status=400 )
 
             # Authenticate the user
             user = authenticate(request, email=email, password=password)
             if user:
                 login(request, user)
-                return redirect('home')
-                
-                # if user.is_vendor:
-                #     # messages.success(request, 'Welcome back, Vendor!')
-                #     # return render(request, 'index.html')
-                #     return redirect('home')
-                # else:
-                #     # messages.success(request, 'Welcome back, Customer!')
-                #     # return render(request, 'index.html')
-                #     return redirect('home')
+                # return redirect('home')
+                return JsonResponse({"home":"Login Successful!\u00A0\u00A0\u00A0\u00A0Redirecting . . . ."},status=200 )
             else:
-                messages.error(request, 'Invalid input')
-                return redirect('login')
-
+                # messages.error(request, 'Invalid input')
+                # return redirect('login')
+                return JsonResponse({"invalid":"Invalid Password"},status=400 )
+                
         except User.DoesNotExist:
-            messages.error(request, 'User does not exist. Signup here.')
-        return redirect('signup')
+            return JsonResponse({"signup":"User does not exist.\u00A0\u00A0Redirecting. . . ."},status=400 )
+        #     messages.error(request, 'User does not exist. Signup here.')
+        # return redirect('signup')
 
 
 
@@ -366,8 +384,9 @@ class Login(View):
 
 def Logout(request):
     logout(request)
-    messages.success(request, 'Signed out successfully')
-    return redirect('login')
+    # messages.success(request, 'Signed out successfully')
+    # return redirect('login')
+    return JsonResponse({"logout":"Logout successful!\u00A0\u00A0\u00A0\u00A0Redirecting . . . . ."},status=200)
 
 
 

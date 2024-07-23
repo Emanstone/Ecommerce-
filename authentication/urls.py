@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import Signup, Verify, Register, UserAccount, VendorApply, Home, Login, Logout, VendorPage, ReverifyOtp, ForgotPassword, PasswordReset
-
+from .views import Signup, Register, UserAccount, Home, Login, Logout
+from .vendorview import *
+from .authview import *
+from .passview import *
 # user/
 urlpatterns = [
     path('', Home.as_view(), name='home'),

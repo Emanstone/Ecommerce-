@@ -21,9 +21,9 @@
   </head>
   <body>
 
-    {% comment %} {% if messages %} {% endcomment %}
+    <!-- {% if messages %} -->
 
-    {% comment %} <div class="messages mt-2"> {% endcomment %}
+    <!-- <div class="messages mt-2"> -->
         {% for mymessage in messages %}
 
           {% if mymessage.tags %}
@@ -33,13 +33,13 @@
           {% endif %}
 
         {% endfor %}
-    {% comment %} </div> {% endcomment %}
+    <!-- </div> -->
     
-    {% comment %} {% endif %} {% endcomment %}
+    <!-- {% endif %} -->
 
     <script>
       $(document).ready(function() {
-        $(".alert").delay(5000).fadeOut();  // Adjust delay as needed (in milliseconds)
+        $(".alert").delay(2500).fadeOut();  // Adjust delay as needed (in milliseconds)
       });
     </script>
 
