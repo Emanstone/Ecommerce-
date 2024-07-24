@@ -18,7 +18,7 @@ $(window).on('load', function () {
 
 $(document).ready(function () {
     $("#form").on('submit', function (event) {
-        event.preventDefault();
+        event.preventDefault();    // Prevent the form from loading
         // $("#loader").show()
         const $forms = $(this);    // get all the instances of the form
         const $spinner = $('#spin');  // spin id by the submit button
@@ -37,7 +37,7 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: '/signup/',
-            data: $forms.serialize(),
+            data: $forms.serialize(),  // Serialize the form data instead of listing the form inputs one by one, this is possible bcos (this)
             datatype: 'json',
 
             success: function (event) {

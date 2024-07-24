@@ -11,9 +11,9 @@ $(window).on('load', function () {
     })
 
 })
-       
 
 
+// // NORMAL MESSAGE CODE
 $(document).ready(function () {
     $("#linksubmit").on('click', function (event) {
         event.preventDefault();
@@ -60,6 +60,91 @@ $(document).ready(function () {
 
 
 
+
+
+
+
+// // DOT ANIME CODE
+// $(document).ready(function () {
+//     $("#linksubmit").on('click', function (event) {
+//         event.preventDefault();
+
+//         const $linksubmit = $('#linksubmit');
+//         const $logout = $('#logout');
+//         const $message = $('#message');
+//         const csrftoken = $("[name='csrfmiddlewaretoken']").val();
+
+//         // Confirmation popup before logout
+//         if (confirm("Are you sure you want to log out?")) {
+//             $linksubmit.prop('disabled', true);
+//             $logout.text('processing...');
+
+//             // Now use ajax to communicate with the views
+//             if (csrftoken) {
+//                 $.ajax({
+//                     type: 'POST',
+//                     url: '/logout/',
+//                     headers: { 'X-CSRFToken': csrftoken },
+//                     dataType: 'json',
+
+//                     success: function (event) {
+//                         if (event.logout) {
+//                             $message
+//                                 .removeClass('alert-danger')
+//                                 .addClass('alert-success')
+//                                 .text(event.logout)
+//                                 .show();
+
+//                             // Start of Dot Anime Here ***
+//                             let dots = "";
+//                             const intervalId = setInterval(function () {
+//                                 dots += ".";
+//                                 $message.text(event.logout + " ".repeat(dots.length) + dots);
+
+//                                 if (dots.length === 6) {
+//                                     clearInterval(intervalId);  //  End of Dot Anime ***
+
+//                                     setTimeout(function () {
+//                                         window.location.href = "/login/";
+//                                         $linksubmit.prop('disabled', false);
+//                                         $logout.text('Logout');
+//                                     }, 1000);  // Redirect page after 1 second
+//                                 }
+
+//                             }, 500); // Dot Anime timing interval*** 
+//                         }
+//                     }
+//                 });
+
+//             } else {
+//                 console.log(error);
+//             }
+//         }
+//     });
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // INITIAL CODE 
 // $(document).ready(function () {
 //     $("#linksubmit").on('click', function (event) {
 //         event.preventDefault();

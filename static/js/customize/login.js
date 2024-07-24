@@ -14,6 +14,7 @@ $(window).on('load', function () {
 })
 
 
+// // NORMAL MESSAGE CODE
 $(document).ready(function () {
     $("#form-l").on('submit', function (event) {
         event.preventDefault();
@@ -47,10 +48,10 @@ $(document).ready(function () {
                   }, 3000);
                 } 
             },
-              
 
 
-            
+
+
             error: function (e) {
                 if (e.responseJSON.email || e.responseJSON.password) {
                     $message.removeClass('alert-success')
@@ -114,7 +115,7 @@ $(document).ready(function () {
                         $spinner.hide()
                         $login.text('Login')      
                     }, 3000)
-                    
+
                 }
                 // console.log(e.responseJSON)
             },    
@@ -126,3 +127,132 @@ $(document).ready(function () {
 
 })
 
+
+
+
+
+
+
+// // DOT ANIME CODE
+// $(document).ready(function () {
+//     $("#form-l").on('submit', function (event) {
+//         event.preventDefault();
+//         const $forms = $(this);
+//         const $spinner = $('#spin');
+//         const $btnsubmit = $('#btnsubmit');
+//         const $login = $('#login');
+//         const $message = $('#message');
+//         $btnsubmit.prop('disabled', true)
+//         $login.text('processing...')
+//         $spinner.show()
+
+
+//         // Now use ajax to communicate with the views
+//         $.ajax({
+//             type: 'POST',
+//             url: '/login/',
+//             data: $forms.serialize(),
+//             dataType: 'json',
+
+
+//             success: function (event) {
+//                 if (event.home) {          // Check if the response has a "home" property
+//                     $message
+//                         .removeClass('alert-danger')
+//                         .addClass('alert-success')
+//                         .text(event.home)
+//                         .show();
+
+//                     // Start of Dot Anime Here ***
+//                     let dots = "";
+//                     const intervalId = setInterval(function () {
+//                         dots += ".";
+//                         $message.text(event.home + " ".repeat(dots.length) + dots);
+
+//                         if (dots.length === 6) {
+//                             clearInterval(intervalId);   // End of Dot Anime ***
+
+//                             setTimeout(function () {
+//                                 window.location = "/";
+//                             }, 1000);
+//                         }
+
+//                     }, 500);    // Dot Anime timing interval***      
+//                 }
+//             },
+
+
+//             error: function (e) {
+//                 if (e.responseJSON.email || e.responseJSON.password) {
+//                     $message.removeClass('alert-success')
+//                         .addClass('alert-danger')
+//                         .text(e.responseJSON.email)
+//                         .show();
+//                     $btnsubmit.prop('disabled', false)
+//                     $spinner.hide()
+//                     $login.text('Login')
+
+//                 }
+
+
+//                 if (e.responseJSON.password || e.responseJSON.email) {
+//                     $message.removeClass('alert-success')
+//                         .addClass('alert-danger')
+//                         .text(e.responseJSON.password)
+//                         .show();
+//                     $btnsubmit.prop('disabled', false)
+//                     $spinner.hide()
+//                     $login.text('Login')
+
+//                 }
+
+
+//                 if (e.responseJSON.invalid) {
+//                     $message.removeClass('alert-success')
+//                         .addClass('alert-danger')
+//                         .text(e.responseJSON.invalid)
+//                         .show();
+//                     $btnsubmit.prop('disabled', false)
+//                     $spinner.hide()
+//                     $login.text('Login')
+
+//                 }
+
+
+//                 if (e.responseJSON.reverify) {
+//                     $message.removeClass('alert-success')
+//                         .addClass('alert-danger')
+//                         .text(e.responseJSON.reverify)
+//                         .show();
+//                     setTimeout(function () {
+//                         window.location = "/reverify/";
+//                         $btnsubmit.prop('disabled', false)
+//                         $spinner.hide()
+//                         $login.text('Login')
+//                     }, 3000)
+
+//                 }
+
+
+//                 if (e.responseJSON.signup) {
+//                     $message.removeClass('alert-success')
+//                         .addClass('alert-danger')
+//                         .text(e.responseJSON.signup)
+//                         .show();
+//                     setTimeout(function () {
+//                         window.location = "/signup/";
+//                         $btnsubmit.prop('disabled', false)
+//                         $spinner.hide()
+//                         $login.text('Login')
+//                     }, 3000)
+
+//                 }
+//                 // console.log(e.responseJSON)
+//             },
+
+//         });
+
+
+//     });
+
+// })

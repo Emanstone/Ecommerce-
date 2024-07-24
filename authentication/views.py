@@ -366,7 +366,10 @@ class Login(View):
             if user:
                 login(request, user)
                 # return redirect('home')
-                return JsonResponse({"home":"Login Successful!\u00A0\u00A0\u00A0\u00A0Redirecting . . . ."},status=200 )
+                return JsonResponse({"home":"Login Successful!\u00A0\u00A0\u00A0\u00A0Redirecting"},status=200 )
+                # IF I WANT TO ADD "firstname" TO THE SUCCESS MESSAGE;
+                # firstname = request.user.first_name
+                # return JsonResponse({"home": f"Login Successful! {user.firstname} Redirecting . . . ."}, status=200)
             else:
                 # messages.error(request, 'Invalid input')
                 # return redirect('login')
@@ -381,12 +384,11 @@ class Login(View):
 
 
 
-
 def Logout(request):
     logout(request)
     # messages.success(request, 'Signed out successfully')
     # return redirect('login')
-    return JsonResponse({"logout":"Logout successful!\u00A0\u00A0\u00A0\u00A0Redirecting . . . . ."},status=200)
+    return JsonResponse({"logout":"Logout successful!\u00A0\u00A0\u00A0\u00A0Redirecting"},status=200)
 
 
 
