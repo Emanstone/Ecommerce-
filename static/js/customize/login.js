@@ -173,7 +173,8 @@ $(document).ready(function () {
 //                             clearInterval(intervalId);   // End of Dot Anime ***
 
 //                             setTimeout(function () {
-//                                 window.location = "/";
+//                                 // window.location = "/";
+//                                 window.location.href = "/";
 //                             }, 1000);
 //                         }
 
@@ -239,19 +240,28 @@ $(document).ready(function () {
 //                         .addClass('alert-danger')
 //                         .text(e.responseJSON.signup)
 //                         .show();
-//                     setTimeout(function () {
-//                         window.location = "/signup/";
-//                         $btnsubmit.prop('disabled', false)
-//                         $spinner.hide()
-//                         $login.text('Login')
-//                     }, 3000)
+//                     // Start of Dot Anime Here ***
+//                     let dots = "";
+//                     const intervalId = setInterval(function () {
+//                         dots += ".";
+//                         $message.text(e.responseJSON.signup + " ".repeat(dots.length) + dots);
 
+//                         if (dots.length === 6) {
+//                             clearInterval(intervalId);   // End of Dot Anime ***
+
+//                             setTimeout(function () {
+//                                 window.location = "/signup/";
+//                                 $btnsubmit.prop('disabled', false)
+//                                 $spinner.hide()
+//                                 $login.text('Login')
+//                             }, 1000);
+//                         }
+
+//                     }, 500);    // Dot Anime timing interval***      
 //                 }
-//                 // console.log(e.responseJSON)
 //             },
 
 //         });
-
 
 //     });
 

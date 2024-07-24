@@ -366,7 +366,7 @@ class Login(View):
             if user:
                 login(request, user)
                 # return redirect('home')
-                return JsonResponse({"home":"Login Successful!\u00A0\u00A0\u00A0\u00A0Redirecting"},status=200 )
+                return JsonResponse({"home":"Login\u00A0\u00A0Successful!\u00A0\u00A0\u00A0\u00A0Redirecting"},status=200 )
                 # IF I WANT TO ADD "firstname" TO THE SUCCESS MESSAGE;
                 # firstname = request.user.first_name
                 # return JsonResponse({"home": f"Login Successful! {user.firstname} Redirecting . . . ."}, status=200)
@@ -376,7 +376,7 @@ class Login(View):
                 return JsonResponse({"invalid":"Invalid Password"},status=400 )
                 
         except User.DoesNotExist:
-            return JsonResponse({"signup":"User does not exist.\u00A0\u00A0Redirecting. . . ."},status=400 )
+            return JsonResponse({"signup":"User does not exist.\u00A0\u00A0Redirecting"},status=400 )
         #     messages.error(request, 'User does not exist. Signup here.')
         # return redirect('signup')
 
@@ -388,7 +388,7 @@ def Logout(request):
     logout(request)
     # messages.success(request, 'Signed out successfully')
     # return redirect('login')
-    return JsonResponse({"logout":"Logout successful!\u00A0\u00A0\u00A0\u00A0Redirecting"},status=200)
+    return JsonResponse({"logout":"Logout\u00A0\u00A0Successful!\u00A0\u00A0\u00A0\u00A0Redirecting"},status=200)
 
 
 
