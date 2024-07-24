@@ -46,7 +46,7 @@ $(document).ready(function () {
                             setTimeout(function () {
                                 window.location.href = "/login/";
                                 $linksubmit.prop('disabled', false);
-                                $logout.text('logout');
+                                $logout.text('Logout');
                             }, 3000);
                         }
                     }

@@ -59,7 +59,7 @@ $(document).ready(function () {
                         .show();
                     $btnsubmit.prop('disabled', false)
                     $spinner.hide()
-                    $login.text('login')
+                    $login.text('Login')
 
                 }
 
