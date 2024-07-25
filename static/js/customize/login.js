@@ -166,16 +166,16 @@ $(document).ready(function () {
 //                     // Start of Dot Anime Here ***
 //                     let dots = "";
 //                     const intervalId = setInterval(function () {
-//                         dots += "●";
-//                         $message.text(event.home + " ".repeat(dots.length*5) + dots);
+//                         dots += "●";  
+//                         $message.text(event.home + dots.split('').join('\u00A0'));   // ('\u00A0') is for spacing
 
 //                         if (dots.length === 5) {
 //                             clearInterval(intervalId);   // End of Dot Anime ***
 
 //                             setTimeout(function () {
-//                                 // window.location = "/";
 //                                 window.location.href = "/";
-//                             }, 1000);
+//                                 // window.location = "/";
+//                             }, 1500);
 //                         }
 
 //                     }, 800);    // Dot Anime timing interval***      
@@ -243,18 +243,18 @@ $(document).ready(function () {
 //                     // Start of Dot Anime Here ***
 //                     let dots = "";
 //                     const intervalId = setInterval(function () {
-//                         dots += "●";
-//                         $message.text(e.responseJSON.signup + " ".repeat(dots.length*5) + dots);
+//                         dots += "●";                       
+//                         $message.text(e.responseJSON.signup + dots.split('').join('\u00A0')); // ('\u00A0') is for spacing
 
 //                         if (dots.length === 5) {
 //                             clearInterval(intervalId);   // End of Dot Anime ***
 
 //                             setTimeout(function () {
-//                                 window.location = "/signup/";
+//                                 window.location.href = "/signup/";
 //                                 $btnsubmit.prop('disabled', false)
 //                                 $spinner.hide()
 //                                 $login.text('Login')
-//                             }, 1000);
+//                             }, 1500);
 //                         }
 
 //                     }, 800);    // Dot Anime timing interval***      
