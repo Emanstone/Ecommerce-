@@ -98,10 +98,10 @@ $(document).ready(function () {
 //                             // Start of Dot Anime Here ***
 //                             let dots = "";
 //                             const intervalId = setInterval(function () {
-//                                 dots += ".";
-//                                 $message.text(event.logout + " ".repeat(dots.length) + dots);
+//                                 dots += "●";
+//                                 $message.text(event.logout + " ".repeat(dots.length*5) + dots);
 
-//                                 if (dots.length === 6) {
+//                                 if (dots.length === 5) {
 //                                     clearInterval(intervalId);  //  End of Dot Anime ***
 
 //                                     setTimeout(function () {
@@ -111,7 +111,7 @@ $(document).ready(function () {
 //                                     }, 1000);  // Redirect page after 1 second
 //                                 }
 
-//                             }, 500); // Dot Anime timing interval*** 
+//                             }, 800); // Dot Anime timing interval*** 
 //                         }
 //                     }
 //                 });

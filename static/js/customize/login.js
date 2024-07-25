@@ -166,10 +166,10 @@ $(document).ready(function () {
 //                     // Start of Dot Anime Here ***
 //                     let dots = "";
 //                     const intervalId = setInterval(function () {
-//                         dots += ".";
-//                         $message.text(event.home + " ".repeat(dots.length) + dots);
+//                         dots += "●";
+//                         $message.text(event.home + " ".repeat(dots.length*5) + dots);
 
-//                         if (dots.length === 6) {
+//                         if (dots.length === 5) {
 //                             clearInterval(intervalId);   // End of Dot Anime ***
 
 //                             setTimeout(function () {
@@ -178,7 +178,7 @@ $(document).ready(function () {
 //                             }, 1000);
 //                         }
 
-//                     }, 500);    // Dot Anime timing interval***      
+//                     }, 800);    // Dot Anime timing interval***      
 //                 }
 //             },
 
@@ -243,10 +243,10 @@ $(document).ready(function () {
 //                     // Start of Dot Anime Here ***
 //                     let dots = "";
 //                     const intervalId = setInterval(function () {
-//                         dots += ".";
-//                         $message.text(e.responseJSON.signup + " ".repeat(dots.length) + dots);
+//                         dots += "●";
+//                         $message.text(e.responseJSON.signup + " ".repeat(dots.length*5) + dots);
 
-//                         if (dots.length === 6) {
+//                         if (dots.length === 5) {
 //                             clearInterval(intervalId);   // End of Dot Anime ***
 
 //                             setTimeout(function () {
@@ -257,7 +257,7 @@ $(document).ready(function () {
 //                             }, 1000);
 //                         }
 
-//                     }, 500);    // Dot Anime timing interval***      
+//                     }, 800);    // Dot Anime timing interval***      
 //                 }
 //             },
 
